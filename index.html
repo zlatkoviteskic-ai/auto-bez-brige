@@ -1,1 +1,364 @@
 
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AUTO BEZ BRIGE – kompletna briga o vašem automobilu u Sarajevu.">
+  <title>AUTO BEZ BRIGE | Jedan kontakt. Sve brige o automobilu.</title>
+  <style>
+    :root {
+      --dark: #101713;
+      --green: #9bd34b;
+      --light: #f5f7f3;
+      --muted: #aab4ad;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--dark);
+      background: var(--light);
+      line-height: 1.6;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .container {
+      width: min(1120px, 90%);
+      margin: auto;
+    }
+
+    header {
+      background: var(--dark);
+      color: white;
+      padding: 20px 0;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .logo span { color: var(--green); }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      font-size: 14px;
+      color: #d2d8d3;
+    }
+
+    .hero {
+      background: var(--dark);
+      color: white;
+      padding: 100px 0 110px;
+    }
+
+    .hero-content { max-width: 760px; }
+
+    .eyebrow {
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 7vw, 72px);
+      line-height: 1.05;
+      letter-spacing: -3px;
+      margin-bottom: 25px;
+    }
+
+    h1 span { color: var(--green); }
+
+    .hero p {
+      color: #c3ccc5;
+      font-size: 18px;
+      max-width: 600px;
+      margin-bottom: 35px;
+    }
+
+    .button {
+      display: inline-block;
+      background: var(--green);
+      color: var(--dark);
+      padding: 15px 25px;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: .2s;
+    }
+
+    .button:hover {
+      background: white;
+      transform: translateY(-2px);
+    }
+
+    .section { padding: 80px 0; }
+
+    .section-title {
+      font-size: 36px;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .section-intro {
+      color: #667168;
+      max-width: 650px;
+      margin-bottom: 40px;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .service {
+      background: white;
+      padding: 28px;
+      border-radius: 12px;
+      border: 1px solid #e5eae3;
+      transition: .2s;
+    }
+
+    .service:hover {
+      transform: translateY(-5px);
+      border-color: var(--green);
+    }
+
+    .service-icon {
+      font-size: 32px;
+      margin-bottom: 18px;
+    }
+
+    .service h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .service p {
+      color: #68736b;
+      font-size: 14px;
+    }
+
+    .about {
+      background: #e9eee6;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .about h2 {
+      font-size: 38px;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .about p { color: #58645a; }
+
+    .features {
+      display: grid;
+      gap: 15px;
+    }
+
+    .feature {
+      background: white;
+      padding: 18px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .feature span {
+      color: #70a52d;
+      margin-right: 10px;
+    }
+
+    .contact {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 75px 0;
+    }
+
+    .contact h2 {
+      font-size: 36px;
+      margin-bottom: 15px;
+    }
+
+    .contact p {
+      color: #b9c3bc;
+      margin-bottom: 28px;
+    }
+
+    footer {
+      background: #0a100c;
+      color: #9da9a0;
+      padding: 25px 0;
+      font-size: 13px;
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 800px) {
+      .services { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 520px) {
+      .services { grid-template-columns: 1fr; }
+      .hero { padding: 75px 0; }
+      .section { padding: 60px 0; }
+      h1 { letter-spacing: -2px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <nav>
+      <a href="#" class="logo">AUTO BEZ <span>BRIGE.</span></a>
+      <div class="nav-links">
+        <a href="#usluge">Usluge</a>
+        <a href="#o-nama">O nama</a>
+        <a href="#kontakt">Kontakt</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="eyebrow">Automotive concierge Sarajevo</div>
+      <h1>Vaš automobil.<br><span>Naša briga.</span></h1>
+      <p>
+        Od redovnog servisa i zamjene guma do kupovine,
+        prodaje i neplaniranih kvarova. Mi organizujemo
+        sve što je potrebno da vaš automobil bude bez brige.
+      </p>
+      <a href="#usluge" class="button">Pogledajte naše usluge →</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="usluge">
+  <div class="container">
+    <div class="eyebrow">Šta radimo</div>
+    <h2 class="section-title">Sve za vaš automobil na jednom mjestu.</h2>
+    <p class="section-intro">
+      Izaberite uslugu. Mi ćemo pronaći rješenje,
+      organizovati posao i pratiti njegovu realizaciju.
+    </p>
+
+    <div class="services">
+
+      <article class="service">
+        <div class="service-icon">🔍</div>
+        <h3>ABB Buy & Sell</h3>
+        <p>Pregled prije kupovine, procjena ulaganja, priprema, fotografisanje i organizacija prodaje automobila.</p>
+      </article>
+
+      <article class="service">
+        <div class="service-icon">🚘</div>
+        <h3>ABB Care</h3>
+        <p>Kompletna briga o vozilu, redovni servisi, registracija, gume, pranje i praćenje svih obaveza.</p>
+      </article>
+
+      <article class="service">
+        <div class="service-icon">🛠️</div>
+        <h3>ABB On Demand</h3>
+        <p>Organizacija majstora, pomoć kod kvarova, šlep služba i pojedinačne intervencije na vaš poziv.</p>
+      </article>
+
+      <article class="service">
+        <div class="service-icon">✨</div>
+        <h3>ABB Detailing</h3>
+        <p>Dubinsko čišćenje, poliranje, zaštita laka i profesionalna njega enterijera i eksterijera.</p>
+      </article>
+
+      <article class="service">
+        <div class="service-icon">🏢</div>
+        <h3>ABB Fleet</h3>
+        <p>Upravljanje i organizacija održavanja vozila za male firme i poslovne korisnike.</p>
+      </article>
+
+      <article class="service">
+        <div class="service-icon">🔧</div>
+        <h3>ABB Check</h3>
+        <p>Tehnička provjera, dijagnostika i kontrola stanja vozila prije kupovine ili dužeg putovanja.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="section about" id="o-nama">
+  <div class="container about-grid">
+    <div>
+      <div class="eyebrow">Jednostavnije vlasništvo automobila</div>
+      <h2>Vi vozite.<br>Mi brinemo o svemu ostalom.</h2>
+      <p>
+        AUTO BEZ BRIGE povezuje vlasnike automobila sa
+        provjerenim servisima, vulkanizerima, praonicama
+        i drugim automobilskim uslugama.
+        Vaš jedan kontakt za sve potrebe automobila.
+      </p>
+    </div>
+
+    <div class="features">
+      <div class="feature"><span>✓</span> Jedan kontakt za sve usluge</div>
+      <div class="feature"><span>✓</span> Provjereni partneri</div>
+      <div class="feature"><span>✓</span> Organizacija termina i intervencija</div>
+      <div class="feature"><span>✓</span> Praćenje troškova i održavanja</div>
+      <div class="feature"><span>✓</span> Ušteda vremena i manje brige</div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="kontakt">
+  <div class="container">
+    <div class="eyebrow">AUTO BEZ BRIGE</div>
+    <h2>Prepustite brigu nama.</h2>
+    <p>Kontaktirajte nas i saznajte kako možemo brinuti o vašem automobilu.</p>
+    <a href="mailto:info@autobezbrige.ba" class="button">Kontaktirajte nas</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div>© 2026 AUTO BEZ BRIGE. Sva prava zadržana.</div>
+    <div>Jedan kontakt. Sve brige o automobilu.</div>
+  </div>
+</footer>
+
+</body>
+</html>
+
