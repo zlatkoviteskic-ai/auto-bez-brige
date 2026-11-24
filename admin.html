@@ -7,8 +7,12 @@
 <title>ABB Admin | AUTO BEZ BRIGE</title>
 <style>
 :root {
-  --dark:#101713; --green:#9bd34b; --bg:#f3f5f2;
-  --white:#fff; --muted:#778179; --border:#e4e9e3;
+  --dark:#101713;
+  --green:#9bd34b;
+  --bg:#f3f5f2;
+  --white:#fff;
+  --muted:#778179;
+  --border:#e4e9e3;
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--dark)}
@@ -51,6 +55,7 @@ td{padding:14px 12px;border-bottom:1px solid var(--border);font-size:14px}
 .form-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
 .notice{background:#f0f5e9;border:1px solid #dce9cf;padding:13px;border-radius:8px;color:#4e672f;font-size:13px;margin-bottom:20px}
 .search{padding:11px;border:1px solid var(--border);border-radius:7px;width:230px;max-width:100%}
+.feature{background:#f3f5f2;padding:20px;border-radius:8px;font-weight:bold}
 @media(max-width:850px){
  .sidebar{width:190px}
  .main{padding:20px}
@@ -74,15 +79,18 @@ td{padding:14px 12px;border-bottom:1px solid var(--border);font-size:14px}
 </head>
 <body>
 <div class="layout">
+
 <aside class="sidebar">
   <div class="logo">AUTO BEZ <span>BRIGE.</span></div>
   <div class="menu-label">Glavni meni</div>
   <button class="nav active" data-page="dashboard">▦ &nbsp; Dashboard</button>
   <button class="nav" data-page="clients">♙ &nbsp; Klijenti</button>
   <button class="nav" data-page="vehicles">▣ &nbsp; Vozila</button>
+
   <div class="menu-label">Poslovanje</div>
   <button class="nav" data-page="services">⚙ &nbsp; Usluge</button>
   <button class="nav" data-page="serviceLog">🔧 &nbsp; Servisna evidencija</button>
+
   <div class="menu-label">Sistem</div>
   <button class="nav" data-page="about">ⓘ &nbsp; O aplikaciji</button>
 </aside>
@@ -101,8 +109,9 @@ td{padding:14px 12px;border-bottom:1px solid var(--border);font-size:14px}
       <div class="stat"><small>Ukupno klijenata</small><strong id="clientCount">0</strong></div>
       <div class="stat"><small>Registrovana vozila</small><strong id="vehicleCount">0</strong></div>
       <div class="stat"><small>Aktivne usluge</small><strong>6</strong></div>
-      <div class="stat"><small>Otvoreni nalozi</small><strong>0</strong></div>
+      <div class="stat"><small>Otvoreni nalozi</small><strong id="serviceCount">0</strong></div>
     </div>
+
     <div class="panel">
       <div class="panel-head"><h2>Dobro došao u ABB</h2></div>
       <p>Ovo je tvoja komandna tabla za upravljanje klijentima i automobilima.</p>
@@ -111,6 +120,7 @@ td{padding:14px 12px;border-bottom:1px solid var(--border);font-size:14px}
         <button class="btn btn-secondary" onclick="showPage('vehicles')">+ Dodaj vozilo</button>
       </div>
     </div>
+
     <div class="panel">
       <h2>Posljednji dodani klijenti</h2>
       <div id="recentClients" class="empty">Još nema evidentiranih klijenata.</div>
@@ -123,6 +133,7 @@ td{padding:14px 12px;border-bottom:1px solid var(--border);font-size:14px}
         <h2>Baza klijenata</h2>
         <button class="btn" onclick="toggleForm('clientForm')">+ Novi klijent</button>
       </div>
+
       <form id="clientForm" style="display:none" onsubmit="addClient(event)">
         <div class="form-grid">
           <div class="field"><label>Ime i prezime *</label><input id="clientName" required></div>
@@ -136,14 +147,17 @@ td{padding:14px 12px;border-bottom:1px solid var(--border);font-size:14px}
         </div>
       </form>
     </div>
+
     <div class="panel">
       <div class="panel-head">
         <h2>Svi klijenti</h2>
         <input class="search" id="clientSearch" placeholder="Pretraži klijente..." oninput="render()">
       </div>
       <div class="table-wrap">
-        <table><thead><tr><th>Ime i prezime</th><th>Telefon</th><th>E-mail</th><th>Vozila</th><th>Akcija</th></tr></thead>
-        <tbody id="clientTable"></tbody></table>
+        <table>
+          <thead><tr><th>Ime i prezime</th><th>Telefon</th><th>E-mail</th><th>Vozila</th><th>Akcija</th></tr></thead>
+          <tbody id="clientTable"></tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -154,6 +168,7 @@ td{padding:14px 12px;border-bottom:1px solid var(--border);font-size:14px}
         <h2>Evidencija vozila</h2>
         <button class="btn" onclick="toggleForm('vehicleForm')">+ Novo vozilo</button>
       </div>
+
       <form id="vehicleForm" style="display:none" onsubmit="addVehicle(event)">
         <div class="form-grid">
           <div class="field"><label>Vlasnik *</label><select id="vehicleOwner" required></select></div>
@@ -163,7 +178,17 @@ td{padding:14px 12px;border-bottom:1px solid var(--border);font-size:14px}
           <div class="field"><label>Registracija važi do</label><input id="vehicleRegistration" type="date"></div>
           <div class="field"><label>Trenutna kilometraža</label><input id="vehicleKm" type="number" min="0"></div>
           <div class="field"><label>Registarska oznaka</label><input id="vehiclePlate"></div>
-          <div class="field"><label>Gorivo</label><select id="vehicleFuel"><option value="">Odaberi</option><option>Benzin</option><option>Dizel</option><option>Hibrid</option><option>Električno</option><option>Plin</option></select></div>
+          <div class="field">
+            <label>Gorivo</label>
+            <select id="vehicleFuel">
+              <option value="">Odaberi</option>
+              <option>Benzin</option>
+              <option>Dizel</option>
+              <option>Hibrid</option>
+              <option>Električno</option>
+              <option>Plin</option>
+            </select>
+          </div>
         </div>
         <div class="form-actions">
           <button class="btn" type="submit">Sačuvaj vozilo</button>
@@ -171,11 +196,14 @@ td{padding:14px 12px;border-bottom:1px solid var(--border);font-size:14px}
         </div>
       </form>
     </div>
+
     <div class="panel">
       <div class="panel-head"><h2>Sva vozila</h2></div>
       <div class="table-wrap">
-        <table><thead><tr><th>Vlasnik</th><th>Vozilo</th><th>Godište</th><th>Registracija</th><th>Kilometraža</th><th>Akcija</th></tr></thead>
-        <tbody id="vehicleTable"></tbody></table>
+        <table>
+          <thead><tr><th>Vlasnik</th><th>Vozilo</th><th>Godište</th><th>Registracija</th><th>Kilometraža</th><th>Akcija</th></tr></thead>
+          <tbody id="vehicleTable"></tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -185,10 +213,10 @@ td{padding:14px 12px;border-bottom:1px solid var(--border);font-size:14px}
       <h2>ABB katalog usluga</h2>
       <p>Šest osnovnih segmenata poslovanja:</p>
       <div class="form-grid" style="margin-top:20px">
-        <div class="feature">🔍 ABB Buy & Sell</div>
+        <div class="feature">🔍 ABB Buy &amp; Sell</div>
         <div class="feature">🚘 ABB Care</div>
         <div class="feature">🛠 ABB On Demand</div>
-        <div class="feature">✨ ABB Detailing & Protection</div>
+        <div class="feature">✨ ABB Detailing &amp; Protection</div>
         <div class="feature">🏢 ABB Fleet</div>
         <div class="feature">🔧 ABB Check</div>
       </div>
@@ -196,127 +224,137 @@ td{padding:14px 12px;border-bottom:1px solid var(--border);font-size:14px}
   </section>
 
   <section class="page" id="serviceLog">
-    <section class="page" id="serviceLog">
-  <div class="panel">
-    <div class="panel-head">
-      <h2>Nova servisna intervencija</h2>
-      <button class="btn" onclick="toggleForm('serviceForm')">+ Evidentiraj servis</button>
-    </div>
-
-    <form id="serviceForm" style="display:none" onsubmit="addService(event)">
-      <div class="form-grid">
-        <div class="field">
-          <label>Vozilo *</label>
-          <select id="serviceVehicle" required></select>
-        </div>
-
-        <div class="field">
-          <label>Datum servisa *</label>
-          <input id="serviceDate" type="date" required>
-        </div>
-
-        <div class="field">
-          <label>Vrsta intervencije *</label>
-          <select id="serviceType" required>
-            <option value="">Odaberi</option>
-            <option>Mali servis</option>
-            <option>Veliki servis</option>
-            <option>Popravka</option>
-            <option>Gume</option>
-            <option>Registracija</option>
-            <option>Tehnički pregled</option>
-            <option>Dijagnostika</option>
-            <option>Ostalo</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Servis / Majstor</label>
-          <input id="servicePartner" placeholder="Naziv servisa">
-        </div>
-
-        <div class="field">
-          <label>Trošak (KM)</label>
-          <input id="serviceCost" type="number" min="0" step="0.01">
-        </div>
-
-        <div class="field">
-          <label>Sljedeći servis</label>
-          <input id="serviceNext" type="date">
-        </div>
-
-        <div class="field">
-          <label>Napomena</label>
-          <input id="serviceNote" placeholder="Npr. zamjena ulja i filtera">
-        </div>
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Nova servisna intervencija</h2>
+        <button class="btn" onclick="toggleForm('serviceForm')">+ Evidentiraj servis</button>
       </div>
 
-      <div class="form-actions">
-        <button class="btn" type="submit">Sačuvaj intervenciju</button>
-        <button class="btn btn-secondary" type="button" onclick="toggleForm('serviceForm')">Odustani</button>
+      <form id="serviceForm" style="display:none" onsubmit="addService(event)">
+        <div class="form-grid">
+          <div class="field">
+            <label>Vozilo *</label>
+            <select id="serviceVehicle" required></select>
+          </div>
+          <div class="field">
+            <label>Datum servisa *</label>
+            <input id="serviceDate" type="date" required>
+          </div>
+          <div class="field">
+            <label>Vrsta intervencije *</label>
+            <select id="serviceType" required>
+              <option value="">Odaberi</option>
+              <option>Mali servis</option>
+              <option>Veliki servis</option>
+              <option>Popravka</option>
+              <option>Gume</option>
+              <option>Registracija</option>
+              <option>Tehnički pregled</option>
+              <option>Dijagnostika</option>
+              <option>Ostalo</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Servis / Majstor</label>
+            <input id="servicePartner" placeholder="Naziv servisa">
+          </div>
+          <div class="field">
+            <label>Trošak (KM)</label>
+            <input id="serviceCost" type="number" min="0" step="0.01">
+          </div>
+          <div class="field">
+            <label>Sljedeći servis</label>
+            <input id="serviceNext" type="date">
+          </div>
+          <div class="field">
+            <label>Napomena</label>
+            <input id="serviceNote" placeholder="Npr. zamjena ulja i filtera">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn" type="submit">Sačuvaj intervenciju</button>
+          <button class="btn btn-secondary" type="button" onclick="toggleForm('serviceForm')">Odustani</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Historija servisiranja</h2>
       </div>
-    </form>
-  </div>
-
-  <div class="panel">
-    <div class="panel-head">
-      <h2>Historija servisiranja</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Datum</th>
+              <th>Vozilo</th>
+              <th>Intervencija</th>
+              <th>Servis</th>
+              <th>Trošak</th>
+              <th>Sljedeći servis</th>
+              <th>Akcija</th>
+            </tr>
+          </thead>
+          <tbody id="serviceTable"></tbody>
+        </table>
+      </div>
     </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Datum</th>
-            <th>Vozilo</th>
-            <th>Intervencija</th>
-            <th>Servis</th>
-            <th>Trošak</th>
-            <th>Sljedeći servis</th>
-            <th>Akcija</th>
-          </tr>
-        </thead>
-        <tbody id="serviceTable"></tbody>
-      </table>
-    </div>
-  </div>
-  </section>
-
   </section>
 
   <section class="page" id="about">
     <div class="panel">
       <h2>O aplikaciji</h2>
       <p>ABB Admin je početni prototip sistema AUTO BEZ BRIGE.</p>
-      <p>Verzija 0.1 – evidencija klijenata i vozila.</p>
+      <p>Verzija 0.2 – evidencija klijenata, vozila i servisnih intervencija.</p>
       <div class="notice">Ova verzija čuva podatke samo u lokalnom pregledniku. Nije povezana sa centralnom bazom niti ima korisničku prijavu.</div>
     </div>
   </section>
+
 </main>
 </div>
 
 <script>
 const load = key => {
-  try { return JSON.parse(localStorage.getItem(key)) || []; }
-  catch { return []; }
+  try {
+    return JSON.parse(localStorage.getItem(key)) || [];
+  } catch {
+    return [];
+  }
 };
+
 let clients = load('abb_clients');
 let vehicles = load('abb_vehicles');
-  let serviceRecords = load('abb_service_records');
+let serviceRecords = load('abb_service_records');
 
-function function save(){   localStorage.setItem('abb_clients',JSON.stringify(clients));   localStorage.setItem('abb_vehicles',JSON.stringify(vehicles));   localStorage.setItem('abb_service_records',JSON.stringify(serviceRecords));   render(); }
+function save(){
   localStorage.setItem('abb_clients',JSON.stringify(clients));
   localStorage.setItem('abb_vehicles',JSON.stringify(vehicles));
+  localStorage.setItem('abb_service_records',JSON.stringify(serviceRecords));
   render();
 }
 
 function showPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+
+  const page=document.getElementById(id);
+  if(!page) return;
+
+  page.classList.add('active');
+
   const nav=document.querySelector('[data-page="'+id+'"]');
   if(nav) nav.classList.add('active');
-  const titles={   dashboard:'Dashboard',   clients:'Klijenti',   vehicles:'Vozila',   services:'Usluge',   serviceLog:'Servisna evidencija',   about:'O aplikaciji' };
-  document.getElementById('pageTitle').textContent=titles[id];
+
+  const titles={
+    dashboard:'Dashboard',
+    clients:'Klijenti',
+    vehicles:'Vozila',
+    services:'Usluge',
+    serviceLog:'Servisna evidencija',
+    about:'O aplikaciji'
+  };
+
+  document.getElementById('pageTitle').textContent=titles[id] || 'ABB Admin';
   render();
 }
 
@@ -326,15 +364,36 @@ document.querySelectorAll('.nav').forEach(btn=>{
 
 function toggleForm(id){
   const form=document.getElementById(id);
+  if(!form) return;
+
   form.style.display=form.style.display==='none'?'block':'none';
+
   if(id==='vehicleForm') updateOwnerOptions();
   if(id==='serviceForm') updateServiceVehicleOptions();
 }
 
+function updateOwnerOptions(){
+  const select=document.getElementById('vehicleOwner');
+  if(!select) return;
+
+  const current=select.value;
+  select.innerHTML='<option value="">Odaberi vlasnika</option>';
+
+  clients.forEach(c=>{
+    const opt=document.createElement('option');
+    opt.value=c.id;
+    opt.textContent=c.name;
+    select.appendChild(opt);
+  });
+
+  select.value=current;
+}
+
 function updateServiceVehicleOptions(){
   const select=document.getElementById('serviceVehicle');
-  const current=select.value;
+  if(!select) return;
 
+  const current=select.value;
   select.innerHTML='<option value="">Odaberi vozilo</option>';
 
   vehicles.forEach(v=>{
@@ -346,6 +405,44 @@ function updateServiceVehicleOptions(){
   });
 
   select.value=current;
+}
+
+function addClient(e){
+  e.preventDefault();
+
+  clients.push({
+    id:Date.now(),
+    name:document.getElementById('clientName').value.trim(),
+    phone:document.getElementById('clientPhone').value.trim(),
+    email:document.getElementById('clientEmail').value.trim(),
+    address:document.getElementById('clientAddress').value.trim()
+  });
+
+  e.target.reset();
+  e.target.style.display='none';
+  save();
+  alert('Klijent je uspješno evidentiran.');
+}
+
+function addVehicle(e){
+  e.preventDefault();
+
+  vehicles.push({
+    id:Date.now(),
+    owner:Number(document.getElementById('vehicleOwner').value),
+    make:document.getElementById('vehicleMake').value.trim(),
+    model:document.getElementById('vehicleModel').value.trim(),
+    year:document.getElementById('vehicleYear').value,
+    registration:document.getElementById('vehicleRegistration').value,
+    km:document.getElementById('vehicleKm').value,
+    plate:document.getElementById('vehiclePlate').value.trim(),
+    fuel:document.getElementById('vehicleFuel').value
+  });
+
+  e.target.reset();
+  e.target.style.display='none';
+  save();
+  alert('Vozilo je uspješno evidentirano.');
 }
 
 function addService(e){
@@ -374,90 +471,39 @@ function removeService(id){
   save();
 }
 
-function addClient(e){
-  e.preventDefault();
-  clients.push({
-    id:Date.now(),
-    name:document.getElementById('clientName').value.trim(),
-    phone:document.getElementById('clientPhone').value.trim(),
-    email:document.getElementById('clientEmail').value.trim(),
-    address:document.getElementById('clientAddress').value.trim()
-  });
-  e.target.reset();
-  e.target.style.display='none';
-  save();
-  alert('Klijent je uspješno evidentiran.');
-}
-
-function addVehicle(e){
-  e.preventDefault();
-  vehicles.push({
-    id:Date.now(),
-    owner:Number(document.getElementById('vehicleOwner').value),
-    make:document.getElementById('vehicleMake').value.trim(),
-    model:document.getElementById('vehicleModel').value.trim(),
-    year:document.getElementById('vehicleYear').value,
-    registration:document.getElementById('vehicleRegistration').value,
-    km:document.getElementById('vehicleKm').value,
-    plate:document.getElementById('vehiclePlate').value.trim(),
-    fuel:document.getElementById('vehicleFuel').value
-  });
-  e.target.reset();
-  e.target.style.display='none';
-  save();
-  alert('Vozilo je uspješno evidentirano.');
-}
-
-function updateOwnerOptions(){
-  const select=document.getElementById('vehicleOwner');
-  select.innerHTML='<option value="">Odaberi vlasnika</option>';
-  clients.forEach(c=>{
-    const opt=document.createElement('option');
-    opt.value=c.id;
-    opt.textContent=c.name;
-    select.appendChild(opt);
-  });
-}
-
 function removeClient(id){
   if(!confirm('Obrisati klijenta i sva njegova vozila?')) return;
+
   clients=clients.filter(c=>c.id!==id);
   vehicles=vehicles.filter(v=>v.owner!==id);
+
   save();
 }
 
 function removeVehicle(id){
   if(!confirm('Obrisati ovo vozilo?')) return;
+
   vehicles=vehicles.filter(v=>v.id!==id);
   save();
 }
 
 function escapeHTML(value){
   return String(value??'').replace(/[&<>"']/g,c=>({
-    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
   }[c]));
 }
 
-function render()  updateServiceVehicleOptions();
-
-  document.getElementById('serviceTable').innerHTML=serviceRecords.length
-    ?serviceRecords.slice().reverse().map(s=>{
-      const v=vehicles.find(x=>x.id===s.vehicle);
-      return `<tr>
-        <td>${escapeHTML(s.date)}</td>
-        <td>${v?escapeHTML(v.make+' '+v.model):'Obrisano vozilo'}</td>
-        <td>${escapeHTML(s.type)}</td>
-        <td>${escapeHTML(s.partner||'–')}</td>
-        <td>${s.cost?Number(s.cost).toLocaleString('bs-BA')+' KM':'–'}</td>
-        <td>${escapeHTML(s.next||'–')}</td>
-        <td><button class="btn btn-danger" onclick="removeService(${s.id})">Obriši</button></td>
-      </tr>`;
-    }).join('')
-    :'<tr><td colspan="7" class="empty">Još nema evidentiranih intervencija.</td></tr>';{
+function render(){
   document.getElementById('clientCount').textContent=clients.length;
   document.getElementById('vehicleCount').textContent=vehicles.length;
+  document.getElementById('serviceCount').textContent=serviceRecords.length;
 
   const search=(document.getElementById('clientSearch')?.value||'').toLowerCase();
+
   const filtered=clients.filter(c=>
     (c.name+' '+c.phone+' '+c.email).toLowerCase().includes(search)
   );
@@ -492,10 +538,26 @@ function render()  updateServiceVehicleOptions();
     ).join('')
     :'<div class="empty">Još nema evidentiranih klijenata.</div>';
 
+  document.getElementById('serviceTable').innerHTML=serviceRecords.length
+    ?serviceRecords.slice().reverse().map(s=>{
+      const v=vehicles.find(x=>x.id===s.vehicle);
+      return `<tr>
+        <td>${escapeHTML(s.date)}</td>
+        <td>${v?escapeHTML(v.make+' '+v.model):'Obrisano vozilo'}</td>
+        <td>${escapeHTML(s.type)}</td>
+        <td>${escapeHTML(s.partner||'–')}</td>
+        <td>${s.cost?Number(s.cost).toLocaleString('bs-BA')+' KM':'–'}</td>
+        <td>${escapeHTML(s.next||'–')}</td>
+        <td><button class="btn btn-danger" onclick="removeService(${s.id})">Obriši</button></td>
+      </tr>`;
+    }).join('')
+    :'<tr><td colspan="7" class="empty">Još nema evidentiranih intervencija.</td></tr>';
+
   updateOwnerOptions();
+  updateServiceVehicleOptions();
 }
+
 render();
 </script>
 </body>
 </html>
-
