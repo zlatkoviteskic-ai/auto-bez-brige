@@ -82,6 +82,7 @@ td{padding:14px 12px;border-bottom:1px solid var(--border);font-size:14px}
   <button class="nav" data-page="vehicles">▣ &nbsp; Vozila</button>
   <div class="menu-label">Poslovanje</div>
   <button class="nav" data-page="services">⚙ &nbsp; Usluge</button>
+  <button class="nav" data-page="serviceLog">🔧 &nbsp; Servisna evidencija</button>
   <div class="menu-label">Sistem</div>
   <button class="nav" data-page="about">ⓘ &nbsp; O aplikaciji</button>
 </aside>
@@ -195,6 +196,90 @@ td{padding:14px 12px;border-bottom:1px solid var(--border);font-size:14px}
   </section>
 
   <section class="page" id="about">
+    <section class="page" id="serviceLog">
+  <div class="panel">
+    <div class="panel-head">
+      <h2>Nova servisna intervencija</h2>
+      <button class="btn" onclick="toggleForm('serviceForm')">+ Evidentiraj servis</button>
+    </div>
+
+    <form id="serviceForm" style="display:none" onsubmit="addService(event)">
+      <div class="form-grid">
+        <div class="field">
+          <label>Vozilo *</label>
+          <select id="serviceVehicle" required></select>
+        </div>
+
+        <div class="field">
+          <label>Datum servisa *</label>
+          <input id="serviceDate" type="date" required>
+        </div>
+
+        <div class="field">
+          <label>Vrsta intervencije *</label>
+          <select id="serviceType" required>
+            <option value="">Odaberi</option>
+            <option>Mali servis</option>
+            <option>Veliki servis</option>
+            <option>Popravka</option>
+            <option>Gume</option>
+            <option>Registracija</option>
+            <option>Tehnički pregled</option>
+            <option>Dijagnostika</option>
+            <option>Ostalo</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Servis / Majstor</label>
+          <input id="servicePartner" placeholder="Naziv servisa">
+        </div>
+
+        <div class="field">
+          <label>Trošak (KM)</label>
+          <input id="serviceCost" type="number" min="0" step="0.01">
+        </div>
+
+        <div class="field">
+          <label>Sljedeći servis</label>
+          <input id="serviceNext" type="date">
+        </div>
+
+        <div class="field">
+          <label>Napomena</label>
+          <input id="serviceNote" placeholder="Npr. zamjena ulja i filtera">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn" type="submit">Sačuvaj intervenciju</button>
+        <button class="btn btn-secondary" type="button" onclick="toggleForm('serviceForm')">Odustani</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <h2>Historija servisiranja</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Datum</th>
+            <th>Vozilo</th>
+            <th>Intervencija</th>
+            <th>Servis</th>
+            <th>Trošak</th>
+            <th>Sljedeći servis</th>
+            <th>Akcija</th>
+          </tr>
+        </thead>
+        <tbody id="serviceTable"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
     <div class="panel">
       <h2>O aplikaciji</h2>
       <p>ABB Admin je početni prototip sistema AUTO BEZ BRIGE.</p>
@@ -212,8 +297,9 @@ const load = key => {
 };
 let clients = load('abb_clients');
 let vehicles = load('abb_vehicles');
+  let serviceRecords = load('abb_service_records');
 
-function save(){
+function function save(){   localStorage.setItem('abb_clients',JSON.stringify(clients));   localStorage.setItem('abb_vehicles',JSON.stringify(vehicles));   localStorage.setItem('abb_service_records',JSON.stringify(serviceRecords));   render(); }
   localStorage.setItem('abb_clients',JSON.stringify(clients));
   localStorage.setItem('abb_vehicles',JSON.stringify(vehicles));
   render();
@@ -225,7 +311,7 @@ function showPage(id){
   document.getElementById(id).classList.add('active');
   const nav=document.querySelector('[data-page="'+id+'"]');
   if(nav) nav.classList.add('active');
-  const titles={dashboard:'Dashboard',clients:'Klijenti',vehicles:'Vozila',services:'Usluge',about:'O aplikaciji'};
+  const titles={   dashboard:'Dashboard',   clients:'Klijenti',   vehicles:'Vozila',   services:'Usluge',   serviceLog:'Servisna evidencija',   about:'O aplikaciji' };
   document.getElementById('pageTitle').textContent=titles[id];
   render();
 }
@@ -238,6 +324,49 @@ function toggleForm(id){
   const form=document.getElementById(id);
   form.style.display=form.style.display==='none'?'block':'none';
   if(id==='vehicleForm') updateOwnerOptions();
+  function updateServiceVehicleOptions(){
+  const select=document.getElementById('serviceVehicle');
+  const current=select.value;
+
+  select.innerHTML='<option value="">Odaberi vozilo</option>';
+
+  vehicles.forEach(v=>{
+    const owner=clients.find(c=>c.id===v.owner);
+    const opt=document.createElement('option');
+    opt.value=v.id;
+    opt.textContent=(owner?owner.name+' – ':'')+v.make+' '+v.model+' '+(v.plate||'');
+    select.appendChild(opt);
+  });
+
+  select.value=current;
+}
+
+function addService(e){
+  e.preventDefault();
+
+  serviceRecords.push({
+    id:Date.now(),
+    vehicle:Number(document.getElementById('serviceVehicle').value),
+    date:document.getElementById('serviceDate').value,
+    type:document.getElementById('serviceType').value,
+    partner:document.getElementById('servicePartner').value.trim(),
+    cost:document.getElementById('serviceCost').value,
+    next:document.getElementById('serviceNext').value,
+    note:document.getElementById('serviceNote').value.trim()
+  });
+
+  e.target.reset();
+  e.target.style.display='none';
+  save();
+  alert('Servisna intervencija je evidentirana.');
+}
+
+function removeService(id){
+  if(!confirm('Obrisati ovu servisnu intervenciju?')) return;
+
+  serviceRecords=serviceRecords.filter(s=>s.id!==id);
+  save();
+}
 }
 
 function addClient(e){
@@ -304,7 +433,22 @@ function escapeHTML(value){
   }[c]));
 }
 
-function render(){
+function render()  updateServiceVehicleOptions();
+
+  document.getElementById('serviceTable').innerHTML=serviceRecords.length
+    ?serviceRecords.slice().reverse().map(s=>{
+      const v=vehicles.find(x=>x.id===s.vehicle);
+      return `<tr>
+        <td>${escapeHTML(s.date)}</td>
+        <td>${v?escapeHTML(v.make+' '+v.model):'Obrisano vozilo'}</td>
+        <td>${escapeHTML(s.type)}</td>
+        <td>${escapeHTML(s.partner||'–')}</td>
+        <td>${s.cost?Number(s.cost).toLocaleString('bs-BA')+' KM':'–'}</td>
+        <td>${escapeHTML(s.next||'–')}</td>
+        <td><button class="btn btn-danger" onclick="removeService(${s.id})">Obriši</button></td>
+      </tr>`;
+    }).join('')
+    :'<tr><td colspan="7" class="empty">Još nema evidentiranih intervencija.</td></tr>';{
   document.getElementById('clientCount').textContent=clients.length;
   document.getElementById('vehicleCount').textContent=vehicles.length;
 
