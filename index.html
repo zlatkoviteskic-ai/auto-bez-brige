@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="bs">
 <head>
@@ -7,7 +8,7 @@
 <title>AUTO BEZ BRIGE | Jedan kontakt. Sve brige.</title>
 
 <style>
-:root{
+:root {
   --black:#101713;
   --black2:#18211b;
   --green:#9bd34b;
@@ -16,63 +17,63 @@
   --muted:#a6afa8;
   --line:#e1e5df;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
+* {box-sizing:border-box;margin:0;padding:0}
+html {scroll-behavior:smooth;scroll-padding-top:30px}
+body {
   font-family:Arial,Helvetica,sans-serif;
   color:var(--black);
   background:var(--paper);
   line-height:1.6;
 }
-a{text-decoration:none;color:inherit}
-.container{width:min(1180px,90%);margin:auto}
+a {text-decoration:none;color:inherit}
+.container {width:min(1180px,90%);margin:auto}
 
 /* HEADER */
-header{
+header {
   position:absolute;
   top:0;left:0;width:100%;
   z-index:10;
   color:white;
   border-bottom:1px solid rgba(255,255,255,.13);
 }
-nav{
+nav {
   min-height:88px;
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:30px;
 }
-.brand{
+.brand {
   display:flex;
   align-items:center;
   gap:13px;
   color:white;
 }
-.brand-mark{width:39px;height:39px;flex-shrink:0}
-.brand-name{
+.brand-mark {width:39px;height:39px;flex-shrink:0}
+.brand-name {
   font-size:17px;
   font-weight:800;
   letter-spacing:1.1px;
   line-height:1.1;
 }
-.brand-name span{display:block;color:var(--green)}
-.nav-links{
+.brand-name span {display:block;color:var(--green)}
+.nav-links {
   display:flex;
   align-items:center;
   gap:34px;
   font-size:13px;
   color:#e2e7e2;
 }
-.nav-links a{transition:.2s}
-.nav-links a:hover{color:var(--green)}
-.nav-contact{
+.nav-links a {transition:.2s}
+.nav-links a:hover {color:var(--green)}
+.nav-contact {
   border:1px solid rgba(255,255,255,.5);
   padding:10px 18px;
   border-radius:3px;
 }
 
 /* HERO */
-.hero{
+.hero {
   min-height:720px;
   position:relative;
   display:flex;
@@ -82,7 +83,7 @@ nav{
     linear-gradient(90deg,rgba(9,15,11,.96) 0%,rgba(9,15,11,.82) 42%,rgba(9,15,11,.18) 100%),
     url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2000&q=85") center 58%/cover;
 }
-.hero:after{
+.hero:after {
   content:"";
   position:absolute;
   inset:auto 0 0;
@@ -90,13 +91,13 @@ nav{
   background:linear-gradient(transparent,rgba(10,16,12,.45));
   pointer-events:none;
 }
-.hero-content{
+.hero-content {
   position:relative;
   z-index:1;
   max-width:720px;
   padding-top:90px;
 }
-.eyebrow{
+.eyebrow {
   color:var(--green);
   text-transform:uppercase;
   letter-spacing:3px;
@@ -104,23 +105,28 @@ nav{
   font-weight:bold;
   margin-bottom:25px;
 }
-.hero h1{
+.hero h1 {
   font-size:clamp(48px,7vw,82px);
   line-height:1.02;
   letter-spacing:-4px;
   font-weight:700;
   margin-bottom:27px;
 }
-.hero h1 span{color:var(--green)}
-.hero p{
+.hero h1 span {color:var(--green)}
+.hero p {
   color:#d0d7d1;
   font-size:17px;
   line-height:1.8;
   max-width:550px;
   margin-bottom:36px;
 }
-.hero-actions{display:flex;align-items:center;gap:25px;flex-wrap:wrap}
-.button{
+.hero-actions {
+  display:flex;
+  align-items:center;
+  gap:25px;
+  flex-wrap:wrap;
+}
+.button {
   display:inline-flex;
   align-items:center;
   justify-content:center;
@@ -133,14 +139,14 @@ nav{
   border-radius:3px;
   transition:.2s;
 }
-.button:hover{background:white;transform:translateY(-2px)}
-.text-link{
+.button:hover {background:white;transform:translateY(-2px)}
+.text-link {
   color:white;
   font-size:13px;
   border-bottom:1px solid rgba(255,255,255,.5);
   padding-bottom:5px;
 }
-.hero-note{
+.hero-note {
   position:absolute;
   z-index:2;
   bottom:34px;
@@ -151,30 +157,30 @@ nav{
   text-transform:uppercase;
 }
 
-/* INTRO STRIP */
-.intro-strip{
+/* INTRO */
+.intro-strip {
   background:var(--green);
   padding:20px 0;
 }
-.intro-inner{
+.intro-inner {
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:20px;
 }
-.intro-inner strong{
+.intro-inner strong {
   font-size:14px;
   letter-spacing:.5px;
 }
-.intro-inner span{
+.intro-inner span {
   font-size:12px;
   color:#34432a;
 }
 
-/* GENERAL SECTIONS */
-.section{padding:105px 0}
-.section-head{max-width:690px;margin-bottom:48px}
-.section-kicker{
+/* GENERAL */
+.section {padding:105px 0}
+.section-head {max-width:690px;margin-bottom:48px}
+.section-kicker {
   color:#739b3b;
   font-size:11px;
   text-transform:uppercase;
@@ -182,89 +188,176 @@ nav{
   font-weight:bold;
   margin-bottom:15px;
 }
-.section-title{
+.section-title {
   font-size:clamp(32px,4vw,49px);
   line-height:1.12;
   letter-spacing:-2px;
   margin-bottom:17px;
 }
-.section-intro{
+.section-intro {
   color:#687269;
   font-size:15px;
   max-width:610px;
   line-height:1.8;
 }
 
-/* SERVICES */
-.services{
+/* SERVICE CARDS */
+.services {
   display:grid;
   grid-template-columns:repeat(3,1fr);
   border-top:1px solid var(--line);
   border-left:1px solid var(--line);
 }
-.service{
-  min-height:245px;
+.service {
+  min-height:235px;
   padding:31px;
   background:var(--white);
   border-right:1px solid var(--line);
   border-bottom:1px solid var(--line);
   transition:.25s;
+  display:flex;
+  flex-direction:column;
 }
-.service:hover{
+.service:hover {
   background:#f0f5e9;
   transform:translateY(-3px);
 }
-.service-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:34px;
-}
-.service-number{
+.service-number {
   font-size:11px;
   color:#89948b;
   letter-spacing:1px;
+  margin-bottom:28px;
 }
-.service-symbol{
-  width:34px;height:34px;
-  display:grid;place-items:center;
-  border:1px solid #dce3d8;
-  color:#5f8136;
-  font-size:15px;
-}
-.service h3{
-  font-size:19px;
+.service h3 {
+  font-size:20px;
   margin-bottom:10px;
   letter-spacing:-.3px;
 }
-.service p{
+.service p {
   color:#6c776e;
   font-size:13px;
   line-height:1.8;
+  margin-bottom:20px;
+}
+.service-link {
+  color:#638b31;
+  font-size:12px;
+  font-weight:bold;
+  margin-top:auto;
+  letter-spacing:.4px;
+}
+.service-link:hover {color:var(--black)}
+
+/* DETAILED SERVICES */
+.details-section {padding:30px 0 100px}
+.detail-block {
+  background:white;
+  border:1px solid var(--line);
+  margin-bottom:22px;
+  padding:48px;
+  scroll-margin-top:25px;
+}
+.detail-heading {
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:30px;
+  padding-bottom:28px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:28px;
+}
+.detail-number {
+  color:#7da343;
+  font-size:12px;
+  font-weight:bold;
+  letter-spacing:2px;
+  padding-top:8px;
+}
+.detail-heading h2 {
+  font-size:clamp(25px,3vw,36px);
+  line-height:1.2;
+  letter-spacing:-1px;
+  margin-bottom:12px;
+}
+.detail-subtitle {
+  font-size:16px;
+  color:#687269;
+  font-weight:600;
+}
+.detail-content {
+  max-width:850px;
+  margin-left:180px;
+}
+.detail-content p {
+  color:#59645b;
+  font-size:14px;
+  line-height:1.9;
+  margin-bottom:20px;
+}
+.detail-content h3 {
+  font-size:16px;
+  margin:27px 0 13px;
+}
+.detail-content ul {
+  list-style:none;
+  display:grid;
+  gap:11px;
+  margin:15px 0 25px;
+}
+.detail-content li {
+  position:relative;
+  padding-left:22px;
+  color:#59645b;
+  font-size:14px;
+  line-height:1.75;
+}
+.detail-content li:before {
+  content:"";
+  position:absolute;
+  left:0;
+  top:10px;
+  width:7px;
+  height:7px;
+  background:var(--green);
+  border-radius:50%;
+}
+.detail-emphasis {
+  padding:18px 22px;
+  background:#f0f5e9;
+  border-left:3px solid var(--green);
+  color:#354331 !important;
+  font-weight:600;
+  margin-top:25px;
+}
+.detail-back {
+  display:inline-block;
+  margin-top:10px;
+  color:#739b3b;
+  font-size:12px;
+  font-weight:bold;
 }
 
 /* ABOUT */
-.about{
+.about {
   background:var(--black);
   color:white;
   position:relative;
   overflow:hidden;
 }
-.about-grid{
+.about-grid {
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:90px;
   align-items:center;
 }
-.about .section-title{max-width:530px}
-.about-copy{
+.about .section-title {max-width:530px}
+.about-copy {
   color:#b9c3bb;
   font-size:15px;
   line-height:1.9;
   max-width:520px;
 }
-.about-list{display:grid;gap:0}
-.about-item{
+.about-list {display:grid;gap:0}
+.about-item {
   padding:19px 0;
   border-bottom:1px solid #344038;
   display:flex;
@@ -273,61 +366,61 @@ nav{
   font-size:14px;
   color:#e5eae5;
 }
-.about-check{
+.about-check {
   color:var(--green);
   font-size:16px;
 }
 
 /* HOW IT WORKS */
-.steps{
+.steps {
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:35px;
 }
-.step{border-top:1px solid #bfc8bd;padding-top:22px}
-.step-no{
+.step {border-top:1px solid #bfc8bd;padding-top:22px}
+.step-no {
   color:#7da343;
   font-size:12px;
   letter-spacing:2px;
   margin-bottom:24px;
 }
-.step h3{font-size:20px;margin-bottom:10px}
-.step p{color:#687269;font-size:13px;line-height:1.8}
+.step h3 {font-size:20px;margin-bottom:10px}
+.step p {color:#687269;font-size:13px;line-height:1.8}
 
 /* CONTACT */
-.contact{
+.contact {
   background:#e9eee6;
   padding:85px 0;
 }
-.contact-inner{
+.contact-inner {
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:35px;
 }
-.contact h2{
+.contact h2 {
   font-size:clamp(30px,4vw,45px);
   line-height:1.15;
   letter-spacing:-1.5px;
   margin-bottom:12px;
 }
-.contact p{color:#667168;font-size:14px}
+.contact p {color:#667168;font-size:14px}
 
 /* FOOTER */
-footer{
+footer {
   background:#090e0b;
   color:#aab4ac;
   padding:32px 0;
   font-size:12px;
 }
-.footer-inner{
+.footer-inner {
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:25px;
   flex-wrap:wrap;
 }
-.footer-brand{
+.footer-brand {
   display:flex;
   align-items:center;
   gap:10px;
@@ -335,31 +428,37 @@ footer{
   font-weight:bold;
   letter-spacing:1px;
 }
-.footer-brand svg{width:25px;height:25px}
+.footer-brand svg {width:25px;height:25px}
 
 /* RESPONSIVE */
-@media(max-width:850px){
-  .hero{min-height:670px}
-  .services{grid-template-columns:repeat(2,1fr)}
-  .about-grid{grid-template-columns:1fr;gap:45px}
-  .contact-inner{align-items:flex-start;flex-direction:column}
+@media(max-width:850px) {
+  .hero {min-height:670px}
+  .services {grid-template-columns:repeat(2,1fr)}
+  .about-grid {grid-template-columns:1fr;gap:45px}
+  .contact-inner {align-items:flex-start;flex-direction:column}
+  .detail-heading {grid-template-columns:1fr;gap:8px}
+  .detail-content {margin-left:0}
 }
-@media(max-width:600px){
-  nav{min-height:75px}
-  .nav-links{gap:12px}
-  .nav-links a:not(.nav-contact){display:none}
-  .brand-name{font-size:14px}
-  .brand-mark{width:33px;height:33px}
-  .hero{min-height:690px;background-position:58% center}
-  .hero h1{letter-spacing:-2.5px}
-  .hero p{font-size:15px}
-  .hero-note{display:none}
-  .intro-inner{align-items:flex-start;flex-direction:column;gap:5px}
-  .section{padding:75px 0}
-  .services{grid-template-columns:1fr}
-  .service{min-height:210px;padding:25px}
-  .steps{grid-template-columns:1fr;gap:28px}
-  .footer-inner{align-items:flex-start;flex-direction:column}
+@media(max-width:600px) {
+  nav {min-height:75px}
+  .nav-links {gap:12px}
+  .nav-links a:not(.nav-contact) {display:none}
+  .brand-name {font-size:14px}
+  .brand-mark {width:33px;height:33px}
+  .hero {min-height:690px;background-position:58% center}
+  .hero h1 {letter-spacing:-2.5px}
+  .hero p {font-size:15px}
+  .hero-note {display:none}
+  .intro-inner {align-items:flex-start;flex-direction:column;gap:5px}
+  .section {padding:75px 0}
+  .services {grid-template-columns:1fr}
+  .service {min-height:190px;padding:25px}
+  .steps {grid-template-columns:1fr;gap:28px}
+  .footer-inner {align-items:flex-start;flex-direction:column}
+  .detail-block {padding:27px 22px}
+  .detail-heading {padding-bottom:20px}
+  .detail-content p,.detail-content li {font-size:13px}
+  .details-section {padding-bottom:65px}
 }
 </style>
 </head>
@@ -411,6 +510,8 @@ footer{
     <span>Vaše vrijeme je važno. Mi preuzimamo organizaciju.</span>
   </div>
 </div>
+
+<!-- ABB SERVICES -->
 <section class="section" id="usluge">
   <div class="container">
     <div class="section-head">
@@ -423,63 +524,286 @@ footer{
     </div>
 
     <div class="services">
-      <article class="service">
-        <div class="service-top">
-          <span class="service-number">01 / KUPOVINA I PRODAJA</span>
-          <span class="service-symbol">↗</span>
-        </div>
+
+      <a href="#buy-sell" class="service">
+        <div class="service-number">01 / KUPOVINA I PRODAJA</div>
         <h3>ABB Buy &amp; Sell</h3>
-        <p>Pregled prije kupovine, procjena ulaganja, priprema vozila, fotografisanje i organizacija prodaje.</p>
-      </article>
+        <p>Bolja odluka pri kupovini i kvalitetnija priprema automobila za prodaju.</p>
+        <span class="service-link">UPOZNAJTE USLUGU →</span>
+      </a>
 
-      <article class="service">
-        <div class="service-top">
-          <span class="service-number">02 / SVAKODNEVNA BRIGA</span>
-          <span class="service-symbol">⌁</span>
-        </div>
+      <a href="#care" class="service">
+        <div class="service-number">02 / SVAKODNEVNA BRIGA</div>
         <h3>ABB Care</h3>
-        <p>Redovni servisi, registracija, gume, pranje i praćenje svih važnih obaveza vašeg vozila.</p>
-      </article>
+        <p>Organizacija održavanja, servisa, guma, registracije i servisne historije.</p>
+        <span class="service-link">UPOZNAJTE USLUGU →</span>
+      </a>
 
-      <article class="service">
-        <div class="service-top">
-          <span class="service-number">03 / PO POZIVU</span>
-          <span class="service-symbol">+</span>
-        </div>
+      <a href="#on-demand" class="service">
+        <div class="service-number">03 / PO POZIVU</div>
         <h3>ABB On Demand</h3>
-        <p>Organizacija majstora, pomoć kod kvarova, šlep služba i pojedinačne intervencije.</p>
-      </article>
+        <p>Pomoć kod kvarova, akumulatora, šlep službe i neplaniranih situacija.</p>
+        <span class="service-link">UPOZNAJTE USLUGU →</span>
+      </a>
 
-      <article class="service">
-        <div class="service-top">
-          <span class="service-number">04 / NJEGA I ZAŠTITA</span>
-          <span class="service-symbol">◇</span>
-        </div>
-        <h3>ABB Detailing</h3>
-        <p>Dubinsko čišćenje, poliranje, zaštita laka i profesionalna njega enterijera i eksterijera.</p>
-      </article>
+      <a href="#detailing" class="service">
+        <div class="service-number">04 / NJEGA I ZAŠTITA</div>
+        <h3>ABB Detailing &amp; Protection</h3>
+        <p>Dubinsko čišćenje, poliranje, obnova izgleda i zaštita vozila.</p>
+        <span class="service-link">UPOZNAJTE USLUGU →</span>
+      </a>
 
-      <article class="service">
-        <div class="service-top">
-          <span class="service-number">05 / POSLOVNI KORISNICI</span>
-          <span class="service-symbol">▤</span>
-        </div>
+      <a href="#fleet" class="service">
+        <div class="service-number">05 / POSLOVNI KORISNICI</div>
         <h3>ABB Fleet</h3>
-        <p>Organizacija održavanja, evidencija troškova i praćenje obaveza vozila za male i srednje firme.</p>
-      </article>
+        <p>Organizovano održavanje, evidencija i kontrola troškova voznog parka.</p>
+        <span class="service-link">UPOZNAJTE USLUGU →</span>
+      </a>
 
-      <article class="service">
-        <div class="service-top">
-          <span class="service-number">06 / PROVJERA VOZILA</span>
-          <span class="service-symbol">⌕</span>
-        </div>
+      <a href="#check" class="service">
+        <div class="service-number">06 / TEHNIČKA PROVJERA</div>
         <h3>ABB Check</h3>
-        <p>Tehnička provjera, dijagnostika i kontrola stanja vozila prije kupovine ili dužeg putovanja.</p>
-      </article>
+        <p>Dijagnostika, provjera stanja, priprema za put i kontrola baterije.</p>
+        <span class="service-link">UPOZNAJTE USLUGU →</span>
+      </a>
+
     </div>
   </div>
 </section>
 
+<!-- DETAILED SERVICE DESCRIPTIONS -->
+<section class="details-section">
+  <div class="container">
+
+    <div class="detail-block" id="buy-sell">
+      <div class="detail-heading">
+        <div class="detail-number">01 / BUY &amp; SELL</div>
+        <div>
+          <h2>ABB Buy &amp; Sell</h2>
+          <div class="detail-subtitle">Kupujete ili prodajete automobil? Tu smo da donesete bolju odluku i ostvarite bolju vrijednost.</div>
+        </div>
+      </div>
+
+      <div class="detail-content">
+        <h3>Kada kupujete automobil</h3>
+        <p>
+          Prije nego što donesete odluku o kupovini, ABB može obaviti detaljan
+          pregled vozila i pomoći vam da saznate u kakvom se stanju automobil zaista nalazi.
+        </p>
+        <p>Pregled obuhvata:</p>
+        <ul>
+          <li>Dijagnostičko očitavanje elektronskih sistema i evidentiranih grešaka.</li>
+          <li>Mjerenje debljine laka na karoserijskim površinama radi utvrđivanja mogućih tragova popravki i lakiranja.</li>
+          <li>Termički pregled motora beskontaktnim termometrom, uz mjerenje temperature na dostupnim površinama i provjeru eventualnih neuobičajenih temperaturnih odstupanja.</li>
+          <li>Detaljan vizuelni pregled motornog prostora, karoserije, unutrašnjosti i dostupnih mehaničkih komponenti.</li>
+          <li>Procjenu uočenog stanja, mogućih nedostataka i potencijalnih troškova ulaganja.</li>
+        </ul>
+        <p>
+          Nakon pregleda dobijate jasniju sliku o vozilu i stručne preporuke
+          koje vam mogu pomoći u odluci o kupovini.
+        </p>
+
+        <h3>Kada prodajete automobil</h3>
+        <p>
+          Pripremamo vaše vozilo za tržište s ciljem da ostavi što bolji utisak
+          i postigne što bolju prodajnu vrijednost.
+        </p>
+        <p>Naša usluga obuhvata:</p>
+        <ul>
+          <li>Pregled trenutnog stanja vozila i preporuke za isplativa manja ulaganja.</li>
+          <li>Savjetovanje o tome šta je potrebno urediti prije oglašavanja.</li>
+          <li>Organizaciju profesionalnog čišćenja i detaljne pripreme vozila.</li>
+          <li>Pripremu vozila za fotografisanje i izradu kvalitetnih fotografija.</li>
+          <li>Pomoć u predstavljanju vozila i pripremi oglasa.</li>
+        </ul>
+        <p class="detail-emphasis">
+          Naš cilj je da automobil predstavimo u najboljem mogućem izdanju,
+          bez nepotrebnih ulaganja koja ne donose stvarnu vrijednost.
+        </p>
+        <a href="#usluge" class="detail-back">↑ POVRATAK NA SVE USLUGE</a>
+      </div>
+    </div>
+
+    <div class="detail-block" id="care">
+      <div class="detail-heading">
+        <div class="detail-number">02 / CARE</div>
+        <div>
+          <h2>ABB Care</h2>
+          <div class="detail-subtitle">Vaš automobil. Naša svakodnevna briga.</div>
+        </div>
+      </div>
+
+      <div class="detail-content">
+        <p>
+          ABB CARE preuzima organizaciju i praćenje svih važnih obaveza vezanih
+          za održavanje vašeg automobila. Ne morate pamtiti termine servisa,
+          tražiti majstore ili razmišljati o tome kada je vrijeme za zamjenu guma.
+          Mi vodimo računa o tome.
+        </p>
+        <p>Usluga obuhvata:</p>
+        <ul>
+          <li>Praćenje servisnih intervala i organizaciju redovnih servisa.</li>
+          <li>Planiranje i organizaciju zamjene i sezonskog skladištenja guma.</li>
+          <li>Praćenje registracije, osiguranja i drugih važnih rokova.</li>
+          <li>Organizaciju pranja, čišćenja i drugih usluga održavanja.</li>
+          <li>Koordinaciju popravki i komunikaciju s provjerenim servisnim partnerima.</li>
+          <li>Preuzimanje i dostavu vozila kada je to potrebno i dogovoreno.</li>
+          <li>Podršku u vanrednim situacijama i neplaniranim kvarovima.</li>
+        </ul>
+        <p>
+          Za svako vozilo vodimo urednu evidenciju intervencija, troškova i
+          servisnih zahvata. Na taj način formiramo servisnu historiju automobila
+          koja vlasniku pruža bolji pregled održavanja, a može predstavljati
+          značajnu prednost prilikom buduće prodaje vozila.
+        </p>
+        <p class="detail-emphasis">
+          Vi koristite automobil. Mi brinemo o svemu što ide uz njega.
+        </p>
+        <a href="#usluge" class="detail-back">↑ POVRATAK NA SVE USLUGE</a>
+      </div>
+    </div>
+
+    <div class="detail-block" id="on-demand">
+      <div class="detail-heading">
+        <div class="detail-number">03 / ON DEMAND</div>
+        <div>
+          <h2>ABB On Demand</h2>
+          <div class="detail-subtitle">Kada se dogodi nešto neplanirano, znate koga možete pozvati.</div>
+        </div>
+      </div>
+
+      <div class="detail-content">
+        <p>
+          Kvar, prazan akumulator, problem s paljenjem ili potreba za šlep službom
+          mogu se dogoditi bilo kada. ABB ON DEMAND pruža podršku u hitnim i
+          vanrednim situacijama kroz koordinaciju odgovarajuće pomoći i servisnih partnera.
+        </p>
+        <p>Organizujemo:</p>
+        <ul>
+          <li>Pomoć kod problema s pokretanjem vozila i pražnjenja akumulatora.</li>
+          <li>Klemanje i pokretanje vozila uz odgovarajuću opremu.</li>
+          <li>Zamjenu akumulatora i organizaciju njegove nabavke.</li>
+          <li>Dolazak mobilnog majstora i hitne intervencije na lokaciji.</li>
+          <li>Organizaciju šlep službe i transporta vozila.</li>
+          <li>Pomoć pri pronalasku odgovarajućeg servisa.</li>
+          <li>Koordinaciju daljnje dijagnostike i popravke.</li>
+        </ul>
+        <p class="detail-emphasis">
+          Naš zadatak je da u stresnoj situaciji preuzmemo organizaciju,
+          povežemo vas s odgovarajućim partnerima i pomognemo da se problem
+          riješi što jednostavnije i brže.
+        </p>
+        <a href="#usluge" class="detail-back">↑ POVRATAK NA SVE USLUGE</a>
+      </div>
+    </div>
+
+    <div class="detail-block" id="detailing">
+      <div class="detail-heading">
+        <div class="detail-number">04 / DETAILING</div>
+        <div>
+          <h2>ABB Detailing &amp; Protection</h2>
+          <div class="detail-subtitle">Više od čistog automobila. Briga o izgledu, stanju i zaštiti vozila.</div>
+        </div>
+      </div>
+
+      <div class="detail-content">
+        <p>
+          Profesionalna njega automobila nije samo pitanje estetike.
+          Redovno i pravilno održavanje unutrašnjih i vanjskih površina
+          doprinosi očuvanju izgleda, udobnosti i vrijednosti vozila.
+        </p>
+        <p>U saradnji sa specijalizovanim partnerima organizujemo:</p>
+        <ul>
+          <li>Detaljno unutrašnje čišćenje i dubinsko pranje enterijera.</li>
+          <li>Profesionalno čišćenje sjedišta, podnih obloga i drugih tekstilnih površina.</li>
+          <li>Temeljito vanjsko pranje i čišćenje teško dostupnih dijelova.</li>
+          <li>Poliranje laka i uklanjanje određenih površinskih nepravilnosti.</li>
+          <li>Tretmane za osvježavanje i zaštitu unutrašnjih površina.</li>
+          <li>Nanošenje zaštitnih premaza, uključujući keramičku zaštitu.</li>
+          <li>Pripremu vozila za prodaju ili posebne prilike.</li>
+        </ul>
+        <p class="detail-emphasis">
+          ABB organizuje uslugu prema stanju vozila i potrebama vlasnika,
+          uz preporuku odgovarajućeg nivoa čišćenja, obnove i zaštite.
+        </p>
+        <a href="#usluge" class="detail-back">↑ POVRATAK NA SVE USLUGE</a>
+      </div>
+    </div>
+
+    <div class="detail-block" id="fleet">
+      <div class="detail-heading">
+        <div class="detail-number">05 / FLEET</div>
+        <div>
+          <h2>ABB Fleet</h2>
+          <div class="detail-subtitle">Kontrola troškova i organizovano održavanje vozila vaše kompanije.</div>
+        </div>
+      </div>
+
+      <div class="detail-content">
+        <p>
+          Upravljanje voznim parkom zahtijeva vrijeme, evidenciju i stalnu
+          koordinaciju. ABB FLEET kompanijama pruža podršku u organizaciji
+          održavanja vozila, praćenju troškova i planiranju servisnih aktivnosti.
+        </p>
+        <p>Usluga obuhvata:</p>
+        <ul>
+          <li>Formiranje evidencije svih vozila u voznom parku.</li>
+          <li>Praćenje registracija, osiguranja i rokova redovnog održavanja.</li>
+          <li>Planiranje i organizaciju malih i velikih servisa.</li>
+          <li>Evidentiranje kvarova, popravki, intervencija i troškova po vozilu.</li>
+          <li>Organizaciju zamjene i sezonskog skladištenja guma.</li>
+          <li>Koordinaciju servisnih partnera, majstora i šlep službi.</li>
+          <li>Praćenje servisne historije svakog vozila.</li>
+          <li>Izvještaje o održavanju i troškovima na nivou pojedinačnog vozila ili kompletnog voznog parka.</li>
+        </ul>
+        <p>
+          Kompanija dobija pregledniju evidenciju, bolju kontrolu obaveza i
+          jednog partnera za koordinaciju svakodnevnih potreba voznog parka.
+        </p>
+        <p class="detail-emphasis">
+          ABB FLEET je namijenjen malim i srednjim kompanijama koje žele
+          organizovano održavanje vozila bez potrebe za vlastitom službom
+          za upravljanje voznim parkom.
+        </p>
+        <a href="#usluge" class="detail-back">↑ POVRATAK NA SVE USLUGE</a>
+      </div>
+    </div>
+
+    <div class="detail-block" id="check">
+      <div class="detail-heading">
+        <div class="detail-number">06 / CHECK</div>
+        <div>
+          <h2>ABB Check</h2>
+          <div class="detail-subtitle">Dodatna provjera prije odluke, puta ili važne investicije.</div>
+        </div>
+      </div>
+
+      <div class="detail-content">
+        <p>
+          ABB CHECK pruža dodatnu tehničku provjeru i procjenu stanja vozila
+          u situacijama kada želite više informacija prije nego što donesete odluku.
+        </p>
+        <p>Usluge mogu obuhvatati:</p>
+        <ul>
+          <li>Dijagnostičku provjeru elektronskih sistema.</li>
+          <li>Provjeru dostupnih parametara rada motora.</li>
+          <li>Pregled i procjenu vidljivog tehničkog stanja vozila.</li>
+          <li>Provjeru stanja baterije kod električnih i hibridnih vozila odgovarajućom opremom.</li>
+          <li>Pripremnu provjeru vozila prije dužeg putovanja.</li>
+          <li>Evidentiranje uočenih nedostataka i preporuke za daljnje provjere.</li>
+        </ul>
+        <p class="detail-emphasis">
+          ABB CHECK vam pruža dodatnu sigurnost i jasniju sliku o stanju vozila
+          prije kupovine, putovanja ili donošenja odluke o daljnjem ulaganju.
+        </p>
+        <a href="#usluge" class="detail-back">↑ POVRATAK NA SVE USLUGE</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
 <section class="section about" id="o-nama">
   <div class="container about-grid">
     <div>
@@ -504,6 +828,7 @@ footer{
   </div>
 </section>
 
+<!-- HOW IT WORKS -->
 <section class="section" id="kako-radi">
   <div class="container">
     <div class="section-head">
@@ -537,6 +862,7 @@ footer{
   </div>
 </section>
 
+<!-- CONTACT -->
 <section class="contact" id="kontakt">
   <div class="container contact-inner">
     <div>
@@ -548,6 +874,7 @@ footer{
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="container footer-inner">
     <div class="footer-brand">
