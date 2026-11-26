@@ -1,69 +1,523 @@
-from pathlib import Path
-
-source_path = Path("/mnt/data/Pasted text(1).txt")
-html = source_path.read_text(encoding="utf-8")
-
-# Add styling for the vehicle detail card.
-html = html.replace(
-    ".feature{background:#f3f5f2;padding:20px;border-radius:8px;font-weight:bold}",
-    """.feature{background:#f3f5f2;padding:20px;border-radius:8px;font-weight:bold}
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABB Admin | AUTO BEZ BRIGE</title>
+<style>
+:root {
+  --dark:#101713;
+  --green:#9bd34b;
+  --bg:#f3f5f2;
+  --white:#fff;
+  --muted:#778179;
+  --border:#e4e9e3;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--dark)}
+button,input,select{font:inherit}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:245px;background:var(--dark);color:white;padding:28px 18px;flex-shrink:0}
+.logo{font-size:21px;font-weight:900;margin:0 0 42px 8px}
+.logo span{color:var(--green)}
+.menu-label{font-size:11px;color:#849087;margin:24px 10px 10px;text-transform:uppercase;letter-spacing:1.5px}
+.nav{display:block;width:100%;border:0;background:transparent;color:#c5cec7;text-align:left;padding:13px 12px;border-radius:7px;margin:4px 0;cursor:pointer}
+.nav:hover,.nav.active{background:#26332a;color:white}
+.nav.active{border-left:3px solid var(--green)}
+.main{flex:1;min-width:0;padding:32px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:30px}
+h1{font-size:27px;margin:0 0 7px}
+.subtitle{color:var(--muted);font-size:14px}
+.admin-tag{background:#e3efd6;color:#416a20;padding:9px 13px;border-radius:20px;font-size:12px;font-weight:bold}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.stat,.panel{background:white;border:1px solid var(--border);border-radius:12px;padding:21px}
+.stat small{color:var(--muted)}
+.stat strong{display:block;font-size:30px;margin-top:12px}
+.panel{margin-bottom:22px}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}
+.panel h2{font-size:18px;margin:0}
+.btn{border:0;background:var(--green);color:var(--dark);padding:11px 16px;border-radius:7px;font-weight:bold;cursor:pointer}
+.btn:hover{filter:brightness(.94)}
+.btn-secondary{background:#e9eee7;color:var(--dark)}
+.btn-danger{background:#fae7e5;color:#a52b20;padding:7px 10px}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:550px}
+th{text-align:left;color:var(--muted);font-size:12px;font-weight:600;padding:12px;border-bottom:1px solid var(--border)}
+td{padding:14px 12px;border-bottom:1px solid var(--border);font-size:14px}
+.empty{text-align:center;color:var(--muted);padding:35px}
+.page{display:none}
+.page.active{display:block}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-size:13px;font-weight:bold}
+.field input,.field select{width:100%;padding:12px;border:1px solid var(--border);border-radius:7px;background:white;min-width:0}
+.form-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.notice{background:#f0f5e9;border:1px solid #dce9cf;padding:13px;border-radius:8px;color:#4e672f;font-size:13px;margin-bottom:20px}
+.search{padding:11px;border:1px solid var(--border);border-radius:7px;width:230px;max-width:100%}
+.feature{background:#f3f5f2;padding:20px;border-radius:8px;font-weight:bold}
 .detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
 .detail-item{background:#f3f5f2;padding:15px;border-radius:8px;min-width:0}
 .detail-item small{display:block;color:var(--muted);margin-bottom:7px}
 .detail-item strong{overflow-wrap:anywhere}
 .detail-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 @media(max-width:850px){.detail-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:500px){.detail-grid{grid-template-columns:1fr}}"""
-)
+@media(max-width:500px){.detail-grid{grid-template-columns:1fr}}
+@media(max-width:850px){
+ .sidebar{width:190px}
+ .main{padding:20px}
+ .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+ .layout{display:block}
+ .sidebar{width:100%;padding:17px}
+ .logo{margin:0 0 15px}
+ .menu-label{display:none}
+ .nav{display:inline-block;width:auto;padding:10px;font-size:12px}
+ .main{padding:18px}
+ .top{align-items:flex-start}
+ .stats{gap:9px}
+ .stat{padding:14px}
+ .stat strong{font-size:24px}
+ .form-grid{grid-template-columns:1fr}
+ .panel{padding:15px}
+}
+</style>
+</head>
+<body>
+<div class="layout">
 
-# Add the detail panel beneath the vehicles table.
-anchor = """      </div>
+<aside class="sidebar">
+  <div class="logo">AUTO BEZ <span>BRIGE.</span></div>
+  <div class="menu-label">Glavni meni</div>
+  <button class="nav active" data-page="dashboard">▦ &nbsp; Dashboard</button>
+  <button class="nav" data-page="clients">♙ &nbsp; Klijenti</button>
+  <button class="nav" data-page="vehicles">▣ &nbsp; Vozila</button>
+
+  <div class="menu-label">Poslovanje</div>
+  <button class="nav" data-page="services">⚙ &nbsp; Usluge</button>
+  <button class="nav" data-page="serviceLog">🔧 &nbsp; Servisna evidencija</button>
+
+  <div class="menu-label">Sistem</div>
+  <button class="nav" data-page="about">ⓘ &nbsp; O aplikaciji</button>
+</aside>
+
+<main class="main">
+  <div class="top">
+    <div>
+      <h1 id="pageTitle">Dashboard</h1>
+      <div class="subtitle">Pregled poslovanja AUTO BEZ BRIGE</div>
+    </div>
+    <div class="admin-tag">ADMIN PANEL</div>
+  </div>
+
+  <section class="page active" id="dashboard">
+    <div class="stats">
+      <div class="stat"><small>Ukupno klijenata</small><strong id="clientCount">0</strong></div>
+      <div class="stat"><small>Registrovana vozila</small><strong id="vehicleCount">0</strong></div>
+      <div class="stat"><small>Aktivne usluge</small><strong>6</strong></div>
+      <div class="stat"><small>Otvoreni nalozi</small><strong id="serviceCount">0</strong></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><h2>Dobro došao u ABB</h2></div>
+      <p>Ovo je tvoja komandna tabla za upravljanje klijentima i automobilima.</p>
+      <div class="form-actions">
+        <button class="btn" onclick="showPage('clients')">+ Dodaj klijenta</button>
+        <button class="btn btn-secondary" onclick="showPage('vehicles')">+ Dodaj vozilo</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Posljednji dodani klijenti</h2>
+      <div id="recentClients" class="empty">Još nema evidentiranih klijenata.</div>
     </div>
   </section>
 
-  <section class="page" id="services">"""
-replacement = """      </div>
+  <section class="page" id="clients">
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Baza klijenata</h2>
+        <button class="btn" onclick="toggleForm('clientForm')">+ Novi klijent</button>
+      </div>
+
+      <form id="clientForm" style="display:none" onsubmit="addClient(event)">
+        <div class="form-grid">
+          <div class="field"><label>Ime i prezime *</label><input id="clientName" required></div>
+          <div class="field"><label>Telefon *</label><input id="clientPhone" required></div>
+          <div class="field"><label>E-mail</label><input id="clientEmail" type="email"></div>
+          <div class="field"><label>Adresa</label><input id="clientAddress"></div>
+        </div>
+        <div class="form-actions">
+          <button class="btn" type="submit">Sačuvaj klijenta</button>
+          <button class="btn btn-secondary" type="button" onclick="toggleForm('clientForm')">Odustani</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Svi klijenti</h2>
+        <input class="search" id="clientSearch" placeholder="Pretraži klijente..." oninput="render()">
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Ime i prezime</th><th>Telefon</th><th>E-mail</th><th>Vozila</th><th>Akcija</th></tr></thead>
+          <tbody id="clientTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="vehicles">
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Evidencija vozila</h2>
+        <button class="btn" onclick="toggleForm('vehicleForm')">+ Novo vozilo</button>
+      </div>
+
+      <form id="vehicleForm" style="display:none" onsubmit="addVehicle(event)">
+        <div class="form-grid">
+          <div class="field"><label>Vlasnik *</label><select id="vehicleOwner" required></select></div>
+          <div class="field"><label>Marka *</label><input id="vehicleMake" required placeholder="Npr. Ford"></div>
+          <div class="field"><label>Model *</label><input id="vehicleModel" required placeholder="Npr. Focus"></div>
+          <div class="field"><label>Godina proizvodnje</label><input id="vehicleYear" type="number" min="1950" max="2035"></div>
+          <div class="field"><label>Registracija važi do</label><input id="vehicleRegistration" type="date"></div>
+          <div class="field"><label>Trenutna kilometraža</label><input id="vehicleKm" type="number" min="0"></div>
+          <div class="field"><label>Registarska oznaka</label><input id="vehiclePlate"></div>
+          <div class="field">
+            <label>Gorivo</label>
+            <select id="vehicleFuel">
+              <option value="">Odaberi</option>
+              <option>Benzin</option>
+              <option>Dizel</option>
+              <option>Hibrid</option>
+              <option>Električno</option>
+              <option>Plin</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn" type="submit">Sačuvaj vozilo</button>
+          <button class="btn btn-secondary" type="button" onclick="toggleForm('vehicleForm')">Odustani</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><h2>Sva vozila</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Vlasnik</th><th>Vozilo</th><th>Godište</th><th>Registracija</th><th>Kilometraža</th><th>Akcija</th></tr></thead>
+          <tbody id="vehicleTable"></tbody>
+        </table>
+      </div>
     </div>
 
     <div class="panel" id="vehicleDetailPanel" style="display:none">
       <div class="panel-head">
         <h2 id="vehicleDetailHeading">Kartica vozila</h2>
         <button class="btn btn-secondary" onclick="closeVehicleDetail()">← Nazad na vozila</button>
-      </div>
+              </div>
       <div id="vehicleDetailContent"></div>
     </div>
   </section>
 
-  <section class="page" id="services">"""
-if anchor not in html:
-    raise ValueError("Nisam pronašao mjesto za karticu vozila u HTML-u.")
-html = html.replace(anchor, replacement, 1)
+  <section class="page" id="services">
+    <div class="panel">
+      <h2>ABB katalog usluga</h2>
+      <p>Šest osnovnih segmenata poslovanja:</p>
+      <div class="form-grid" style="margin-top:20px">
+        <div class="feature">🔍 ABB Buy &amp; Sell</div>
+        <div class="feature">🚘 ABB Care</div>
+        <div class="feature">🛠 ABB On Demand</div>
+        <div class="feature">✨ ABB Detailing &amp; Protection</div>
+        <div class="feature">🏢 ABB Fleet</div>
+        <div class="feature">🔧 ABB Check</div>
+      </div>
+    </div>
+  </section>
 
-# Add selected vehicle state.
-html = html.replace(
-    "let serviceRecords = load('abb_service_records');",
-    "let serviceRecords = load('abb_service_records');\nlet selectedVehicleId = null;"
-)
+  <section class="page" id="serviceLog">
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Nova servisna intervencija</h2>
+        <button class="btn" onclick="toggleForm('serviceForm')">+ Evidentiraj servis</button>
+      </div>
 
-# Make each vehicle name open its card.
-old_vehicle_cell = """        <td><strong>${escapeHTML(v.make)} ${escapeHTML(v.model)}</strong><br><small>${escapeHTML(v.plate)}</small></td>"""
-new_vehicle_cell = """        <td>
-          <button type="button" class="btn btn-secondary" style="text-align:left" onclick="openVehicle(${v.id})">
-            <strong>${escapeHTML(v.make)} ${escapeHTML(v.model)}</strong><br><small>${escapeHTML(v.plate||'Otvori karticu vozila')}</small>
-          </button>
-        </td>"""
-if old_vehicle_cell not in html:
-    raise ValueError("Nisam pronašao ćeliju s nazivom vozila.")
-html = html.replace(old_vehicle_cell, new_vehicle_cell, 1)
+      <form id="serviceForm" style="display:none" onsubmit="addService(event)">
+        <div class="form-grid">
+          <div class="field">
+            <label>Vozilo *</label>
+            <select id="serviceVehicle" required></select>
+          </div>
+          <div class="field">
+            <label>Datum servisa *</label>
+            <input id="serviceDate" type="date" required>
+          </div>
+          <div class="field">
+            <label>Vrsta intervencije *</label>
+            <select id="serviceType" required>
+              <option value="">Odaberi</option>
+              <option>Mali servis</option>
+              <option>Veliki servis</option>
+              <option>Popravka</option>
+              <option>Gume</option>
+              <option>Registracija</option>
+              <option>Tehnički pregled</option>
+              <option>Dijagnostika</option>
+              <option>Ostalo</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Servis / Majstor</label>
+            <input id="servicePartner" placeholder="Naziv servisa">
+          </div>
+          <div class="field">
+            <label>Trošak (KM)</label>
+            <input id="serviceCost" type="number" min="0" step="0.01">
+          </div>
+          <div class="field">
+            <label>Sljedeći servis</label>
+            <input id="serviceNext" type="date">
+          </div>
+          <div class="field">
+            <label>Napomena</label>
+            <input id="serviceNote" placeholder="Npr. zamjena ulja i filtera">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn" type="submit">Sačuvaj intervenciju</button>
+          <button class="btn btn-secondary" type="button" onclick="toggleForm('serviceForm')">Odustani</button>
+        </div>
+      </form>
+    </div>
 
-# Insert detail-card functions before render().
-functions = r"""
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Historija servisiranja</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Datum</th>
+              <th>Vozilo</th>
+              <th>Intervencija</th>
+              <th>Servis</th>
+              <th>Trošak</th>
+              <th>Sljedeći servis</th>
+              <th>Akcija</th>
+            </tr>
+          </thead>
+          <tbody id="serviceTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="about">
+    <div class="panel">
+      <h2>O aplikaciji</h2>
+      <p>ABB Admin je početni prototip sistema AUTO BEZ BRIGE.</p>
+      <p>Verzija 0.2 – evidencija klijenata, vozila i servisnih intervencija.</p>
+      <div class="notice">Ova verzija čuva podatke samo u lokalnom pregledniku. Nije povezana sa centralnom bazom niti ima korisničku prijavu.</div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+const load = key => {
+  try {
+    return JSON.parse(localStorage.getItem(key)) || [];
+  } catch {
+    return [];
+  }
+};
+
+let clients = load('abb_clients');
+let vehicles = load('abb_vehicles');
+let serviceRecords = load('abb_service_records');
+let selectedVehicleId = null;
+
+function save(){
+  localStorage.setItem('abb_clients',JSON.stringify(clients));
+  localStorage.setItem('abb_vehicles',JSON.stringify(vehicles));
+  localStorage.setItem('abb_service_records',JSON.stringify(serviceRecords));
+  render();
+}
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));
+
+  const page=document.getElementById(id);
+  if(!page) return;
+
+  page.classList.add('active');
+
+  const nav=document.querySelector('[data-page="'+id+'"]');
+  if(nav) nav.classList.add('active');
+
+  const titles={
+    dashboard:'Dashboard',
+    clients:'Klijenti',
+    vehicles:'Vozila',
+    services:'Usluge',
+    serviceLog:'Servisna evidencija',
+    about:'O aplikaciji'
+  };
+
+  document.getElementById('pageTitle').textContent=titles[id] || 'ABB Admin';
+  render();
+}
+
+document.querySelectorAll('.nav').forEach(btn=>{
+  btn.addEventListener('click',()=>showPage(btn.dataset.page));
+});
+
+function toggleForm(id){
+  const form=document.getElementById(id);
+  if(!form) return;
+
+  form.style.display=form.style.display==='none'?'block':'none';
+
+  if(id==='vehicleForm') updateOwnerOptions();
+  if(id==='serviceForm') updateServiceVehicleOptions();
+}
+
+function updateOwnerOptions(){
+  const select=document.getElementById('vehicleOwner');
+  if(!select) return;
+
+  const current=select.value;
+  select.innerHTML='<option value="">Odaberi vlasnika</option>';
+
+  clients.forEach(c=>{
+    const opt=document.createElement('option');
+    opt.value=c.id;
+    opt.textContent=c.name;
+    select.appendChild(opt);
+  });
+
+  select.value=current;
+}
+
+function updateServiceVehicleOptions(){
+  const select=document.getElementById('serviceVehicle');
+  if(!select) return;
+
+  const current=select.value;
+  select.innerHTML='<option value="">Odaberi vozilo</option>';
+
+  vehicles.forEach(v=>{
+    const owner=clients.find(c=>c.id===v.owner);
+    const opt=document.createElement('option');
+    opt.value=v.id;
+    opt.textContent=(owner?owner.name+' – ':'')+v.make+' '+v.model+' '+(v.plate||'');
+    select.appendChild(opt);
+  });
+
+  select.value=current;
+}
+
+function addClient(e){
+  e.preventDefault();
+
+  clients.push({
+    id:Date.now(),
+    name:document.getElementById('clientName').value.trim(),
+    phone:document.getElementById('clientPhone').value.trim(),
+    email:document.getElementById('clientEmail').value.trim(),
+    address:document.getElementById('clientAddress').value.trim()
+  });
+
+  e.target.reset();
+  e.target.style.display='none';
+  save();
+  alert('Klijent je uspješno evidentiran.');
+}
+    function addVehicle(e){
+  e.preventDefault();
+
+  vehicles.push({
+    id:Date.now(),
+    owner:Number(document.getElementById('vehicleOwner').value),
+    make:document.getElementById('vehicleMake').value.trim(),
+    model:document.getElementById('vehicleModel').value.trim(),
+    year:document.getElementById('vehicleYear').value,
+    registration:document.getElementById('vehicleRegistration').value,
+    km:document.getElementById('vehicleKm').value,
+    plate:document.getElementById('vehiclePlate').value.trim(),
+    fuel:document.getElementById('vehicleFuel').value
+  });
+
+  e.target.reset();
+  e.target.style.display='none';
+  save();
+  alert('Vozilo je uspješno evidentirano.');
+}
+
+function addService(e){
+  e.preventDefault();
+
+  serviceRecords.push({
+    id:Date.now(),
+    vehicle:Number(document.getElementById('serviceVehicle').value),
+    date:document.getElementById('serviceDate').value,
+    type:document.getElementById('serviceType').value,
+    partner:document.getElementById('servicePartner').value.trim(),
+    cost:document.getElementById('serviceCost').value,
+    next:document.getElementById('serviceNext').value,
+    note:document.getElementById('serviceNote').value.trim()
+  });
+
+  e.target.reset();
+  e.target.style.display='none';
+  save();
+  alert('Servisna intervencija je evidentirana.');
+}
+
+function removeService(id){
+  if(!confirm('Obrisati ovu servisnu intervenciju?')) return;
+  serviceRecords=serviceRecords.filter(s=>s.id!==id);
+  save();
+}
+
+function removeClient(id){
+  if(!confirm('Obrisati klijenta i sva njegova vozila?')) return;
+
+  clients=clients.filter(c=>c.id!==id);
+  vehicles=vehicles.filter(v=>v.owner!==id);
+
+  save();
+}
+
+function removeVehicle(id){
+  if(!confirm('Obrisati ovo vozilo?')) return;
+
+  vehicles=vehicles.filter(v=>v.id!==id);
+  save();
+}
+
+function escapeHTML(value){
+  return String(value??'').replace(/[&<>"']/g,c=>({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[c]));
+}
+
+
 function openVehicle(id){
   selectedVehicleId=id;
   const panel=document.getElementById('vehicleDetailPanel');
   if(panel) panel.style.display='block';
   renderVehicleDetail();
-  document.getElementById('vehicleDetailPanel')?.scrollIntoView({behavior:'smooth',block:'start'});
+  panel?.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 function closeVehicleDetail(){
@@ -133,29 +587,72 @@ function renderVehicleDetail(){
     </div>`;
 }
 
-"""
-html = html.replace("function render(){", functions + "function render(){", 1)
+function render(){
+  document.getElementById('clientCount').textContent=clients.length;
+  document.getElementById('vehicleCount').textContent=vehicles.length;
+  document.getElementById('serviceCount').textContent=serviceRecords.length;
 
-# Refresh an open vehicle card whenever the underlying data is rendered.
-html = html.replace(
-    "  updateOwnerOptions();\n  updateServiceVehicleOptions();",
-    "  updateOwnerOptions();\n  updateServiceVehicleOptions();\n  if(selectedVehicleId!==null) renderVehicleDetail();",
-    1
-)
+  const search=(document.getElementById('clientSearch')?.value||'').toLowerCase();
 
-# Add a clear page title for the detail view (the card stays within the Vehicles page).
-html = html.replace(
-    "  render();\n}\n\n\ndocument.querySelectorAll",
-    "  render();\n}\n\n\ndocument.querySelectorAll",
-    1
-)
+  const filtered=clients.filter(c=>
+    (c.name+' '+c.phone+' '+c.email).toLowerCase().includes(search)
+  );
 
-# Sanity checks: preserve existing core features and ensure new functions exist.
-for marker in ["function openVehicle(id)", "function renderVehicleDetail()", "id=\"vehicleDetailPanel\"", "onclick=\"openVehicle(${v.id})\""]:
-    if marker not in html:
-        raise ValueError(f"Nedostaje očekivani dio: {marker}")
+  document.getElementById('clientTable').innerHTML=filtered.length
+    ?filtered.map(c=>`<tr>
+      <td><strong>${escapeHTML(c.name)}</strong></td>
+      <td>${escapeHTML(c.phone)}</td>
+      <td>${escapeHTML(c.email||'–')}</td>
+      <td>${vehicles.filter(v=>v.owner===c.id).length}</td>
+      <td><button class="btn btn-danger" onclick="removeClient(${c.id})">Obriši</button></td>
+    </tr>`).join('')
+    :'<tr><td colspan="5" class="empty">Nema evidentiranih klijenata.</td></tr>';
 
-output_path = Path("/mnt/data/ABB_Admin_kartica_vozila.html")
-output_path.write_text(html, encoding="utf-8")
-print(f"Gotovo. Kreirana je nova verzija: {output_path.name}")
-print(f"Veličina: {output_path.stat().st_size:,} bajtova")
+  document.getElementById('vehicleTable').innerHTML=vehicles.length
+    ?vehicles.map(v=>{
+      const owner=clients.find(c=>c.id===v.owner);
+      return `<tr>
+       <td>${escapeHTML(owner?.name||'Nepoznat')}</td>
+       <td>
+          <button type="button" class="btn btn-secondary" style="text-align:left" onclick="openVehicle(${v.id})">
+            <strong>${escapeHTML(v.make)} ${escapeHTML(v.model)}</strong><br><small>${escapeHTML(v.plate||'Otvori karticu vozila')}</small>
+          </button>
+        </td>
+       <td>${escapeHTML(v.year||'–')}</td>
+       <td>${escapeHTML(v.registration||'–')}</td>
+       <td>${v.km?Number(v.km).toLocaleString('bs-BA')+' km':'–'}</td>
+       <td><button class="btn btn-danger" onclick="removeVehicle(${v.id})">Obriši</button></td>
+      </tr>`;
+    }).join('')
+    :'<tr><td colspan="6" class="empty">Nema evidentiranih vozila.</td></tr>';
+
+  document.getElementById('recentClients').innerHTML=clients.length
+    ?clients.slice(-5).reverse().map(c=>
+      `<p>${escapeHTML(c.name)} – ${escapeHTML(c.phone)}</p>`
+    ).join('')
+    :'<div class="empty">Još nema evidentiranih klijenata.</div>';
+
+  document.getElementById('serviceTable').innerHTML=serviceRecords.length
+    ?serviceRecords.slice().reverse().map(s=>{
+      const v=vehicles.find(x=>x.id===s.vehicle);
+      return `<tr>
+        <td>${escapeHTML(s.date)}</td>
+        <td>${v?escapeHTML(v.make+' '+v.model):'Obrisano vozilo'}</td>
+        <td>${escapeHTML(s.type)}</td>
+        <td>${escapeHTML(s.partner||'–')}</td>
+        <td>${s.cost?Number(s.cost).toLocaleString('bs-BA')+' KM':'–'}</td>
+        <td>${escapeHTML(s.next||'–')}</td>
+        <td><button class="btn btn-danger" onclick="removeService(${s.id})">Obriši</button></td>
+      </tr>`;
+    }).join('')
+    :'<tr><td colspan="7" class="empty">Još nema evidentiranih intervencija.</td></tr>';
+
+  updateOwnerOptions();
+  updateServiceVehicleOptions();
+  if(selectedVehicleId!==null) renderVehicleDetail();
+}
+
+render();
+</script>
+</body>
+</html>
