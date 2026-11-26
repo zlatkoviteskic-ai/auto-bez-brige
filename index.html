@@ -1,242 +1,367 @@
-
 <!DOCTYPE html>
 <html lang="bs">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AUTO BEZ BRIGE – kompletna briga o vašem automobilu u Sarajevu.">
-  <title>AUTO BEZ BRIGE | Jedan kontakt. Sve brige o automobilu.</title>
-  <style>
-    :root {
-      --dark: #101713;
-      --green: #9bd34b;
-      --light: #f5f7f3;
-      --muted: #aab4ad;
-      --white: #ffffff;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AUTO BEZ BRIGE – jedan kontakt za kompletnu brigu o vašem automobilu u Sarajevu.">
+<title>AUTO BEZ BRIGE | Jedan kontakt. Sve brige.</title>
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+<style>
+:root{
+  --black:#101713;
+  --black2:#18211b;
+  --green:#9bd34b;
+  --paper:#f5f6f2;
+  --white:#fff;
+  --muted:#a6afa8;
+  --line:#e1e5df;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--black);
+  background:var(--paper);
+  line-height:1.6;
+}
+a{text-decoration:none;color:inherit}
+.container{width:min(1180px,90%);margin:auto}
 
-    html { scroll-behavior: smooth; }
+/* HEADER */
+header{
+  position:absolute;
+  top:0;left:0;width:100%;
+  z-index:10;
+  color:white;
+  border-bottom:1px solid rgba(255,255,255,.13);
+}
+nav{
+  min-height:88px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:30px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  color:white;
+}
+.brand-mark{width:39px;height:39px;flex-shrink:0}
+.brand-name{
+  font-size:17px;
+  font-weight:800;
+  letter-spacing:1.1px;
+  line-height:1.1;
+}
+.brand-name span{display:block;color:var(--green)}
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:34px;
+  font-size:13px;
+  color:#e2e7e2;
+}
+.nav-links a{transition:.2s}
+.nav-links a:hover{color:var(--green)}
+.nav-contact{
+  border:1px solid rgba(255,255,255,.5);
+  padding:10px 18px;
+  border-radius:3px;
+}
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--dark);
-      background: var(--light);
-      line-height: 1.6;
-    }
+/* HERO */
+.hero{
+  min-height:720px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  color:white;
+  background:
+    linear-gradient(90deg,rgba(9,15,11,.96) 0%,rgba(9,15,11,.82) 42%,rgba(9,15,11,.18) 100%),
+    url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2000&q=85") center 58%/cover;
+}
+.hero:after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0;
+  height:100px;
+  background:linear-gradient(transparent,rgba(10,16,12,.45));
+  pointer-events:none;
+}
+.hero-content{
+  position:relative;
+  z-index:1;
+  max-width:720px;
+  padding-top:90px;
+}
+.eyebrow{
+  color:var(--green);
+  text-transform:uppercase;
+  letter-spacing:3px;
+  font-size:11px;
+  font-weight:bold;
+  margin-bottom:25px;
+}
+.hero h1{
+  font-size:clamp(48px,7vw,82px);
+  line-height:1.02;
+  letter-spacing:-4px;
+  font-weight:700;
+  margin-bottom:27px;
+}
+.hero h1 span{color:var(--green)}
+.hero p{
+  color:#d0d7d1;
+  font-size:17px;
+  line-height:1.8;
+  max-width:550px;
+  margin-bottom:36px;
+}
+.hero-actions{display:flex;align-items:center;gap:25px;flex-wrap:wrap}
+.button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:15px 23px;
+  background:var(--green);
+  color:var(--black);
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.3px;
+  border-radius:3px;
+  transition:.2s;
+}
+.button:hover{background:white;transform:translateY(-2px)}
+.text-link{
+  color:white;
+  font-size:13px;
+  border-bottom:1px solid rgba(255,255,255,.5);
+  padding-bottom:5px;
+}
+.hero-note{
+  position:absolute;
+  z-index:2;
+  bottom:34px;
+  right:5%;
+  color:#d8ded9;
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
 
-    a { text-decoration: none; color: inherit; }
+/* INTRO STRIP */
+.intro-strip{
+  background:var(--green);
+  padding:20px 0;
+}
+.intro-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+}
+.intro-inner strong{
+  font-size:14px;
+  letter-spacing:.5px;
+}
+.intro-inner span{
+  font-size:12px;
+  color:#34432a;
+}
 
-    .container {
-      width: min(1120px, 90%);
-      margin: auto;
-    }
+/* GENERAL SECTIONS */
+.section{padding:105px 0}
+.section-head{max-width:690px;margin-bottom:48px}
+.section-kicker{
+  color:#739b3b;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:2.5px;
+  font-weight:bold;
+  margin-bottom:15px;
+}
+.section-title{
+  font-size:clamp(32px,4vw,49px);
+  line-height:1.12;
+  letter-spacing:-2px;
+  margin-bottom:17px;
+}
+.section-intro{
+  color:#687269;
+  font-size:15px;
+  max-width:610px;
+  line-height:1.8;
+}
 
-    header {
-      background: var(--dark);
-      color: white;
-      padding: 20px 0;
-    }
+/* SERVICES */
+.services{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--line);
+  border-left:1px solid var(--line);
+}
+.service{
+  min-height:245px;
+  padding:31px;
+  background:var(--white);
+  border-right:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  transition:.25s;
+}
+.service:hover{
+  background:#f0f5e9;
+  transform:translateY(-3px);
+}
+.service-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:34px;
+}
+.service-number{
+  font-size:11px;
+  color:#89948b;
+  letter-spacing:1px;
+}
+.service-symbol{
+  width:34px;height:34px;
+  display:grid;place-items:center;
+  border:1px solid #dce3d8;
+  color:#5f8136;
+  font-size:15px;
+}
+.service h3{
+  font-size:19px;
+  margin-bottom:10px;
+  letter-spacing:-.3px;
+}
+.service p{
+  color:#6c776e;
+  font-size:13px;
+  line-height:1.8;
+}
 
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-    }
+/* ABOUT */
+.about{
+  background:var(--black);
+  color:white;
+  position:relative;
+  overflow:hidden;
+}
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:90px;
+  align-items:center;
+}
+.about .section-title{max-width:530px}
+.about-copy{
+  color:#b9c3bb;
+  font-size:15px;
+  line-height:1.9;
+  max-width:520px;
+}
+.about-list{display:grid;gap:0}
+.about-item{
+  padding:19px 0;
+  border-bottom:1px solid #344038;
+  display:flex;
+  align-items:center;
+  gap:17px;
+  font-size:14px;
+  color:#e5eae5;
+}
+.about-check{
+  color:var(--green);
+  font-size:16px;
+}
 
-    .logo {
-      font-size: 23px;
-      font-weight: 900;
-      letter-spacing: -1px;
-    }
+/* HOW IT WORKS */
+.steps{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:35px;
+}
+.step{border-top:1px solid #bfc8bd;padding-top:22px}
+.step-no{
+  color:#7da343;
+  font-size:12px;
+  letter-spacing:2px;
+  margin-bottom:24px;
+}
+.step h3{font-size:20px;margin-bottom:10px}
+.step p{color:#687269;font-size:13px;line-height:1.8}
 
-    .logo span { color: var(--green); }
+/* CONTACT */
+.contact{
+  background:#e9eee6;
+  padding:85px 0;
+}
+.contact-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:35px;
+}
+.contact h2{
+  font-size:clamp(30px,4vw,45px);
+  line-height:1.15;
+  letter-spacing:-1.5px;
+  margin-bottom:12px;
+}
+.contact p{color:#667168;font-size:14px}
 
-    .nav-links {
-      display: flex;
-      gap: 25px;
-      font-size: 14px;
-      color: #d2d8d3;
-    }
+/* FOOTER */
+footer{
+  background:#090e0b;
+  color:#aab4ac;
+  padding:32px 0;
+  font-size:12px;
+}
+.footer-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:25px;
+  flex-wrap:wrap;
+}
+.footer-brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:white;
+  font-weight:bold;
+  letter-spacing:1px;
+}
+.footer-brand svg{width:25px;height:25px}
 
-    .hero {
-      background: var(--dark);
-      color: white;
-      padding: 100px 0 110px;
-    }
-
-    .hero-content { max-width: 760px; }
-
-    .eyebrow {
-      color: var(--green);
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      font-size: clamp(42px, 7vw, 72px);
-      line-height: 1.05;
-      letter-spacing: -3px;
-      margin-bottom: 25px;
-    }
-
-    h1 span { color: var(--green); }
-
-    .hero p {
-      color: #c3ccc5;
-      font-size: 18px;
-      max-width: 600px;
-      margin-bottom: 35px;
-    }
-
-    .button {
-      display: inline-block;
-      background: var(--green);
-      color: var(--dark);
-      padding: 15px 25px;
-      border-radius: 6px;
-      font-weight: bold;
-      transition: .2s;
-    }
-
-    .button:hover {
-      background: white;
-      transform: translateY(-2px);
-    }
-
-    .section { padding: 80px 0; }
-
-    .section-title {
-      font-size: 36px;
-      letter-spacing: -1px;
-      margin-bottom: 12px;
-    }
-
-    .section-intro {
-      color: #667168;
-      max-width: 650px;
-      margin-bottom: 40px;
-    }
-
-    .services {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .service {
-      background: white;
-      padding: 28px;
-      border-radius: 12px;
-      border: 1px solid #e5eae3;
-      transition: .2s;
-    }
-
-    .service:hover {
-      transform: translateY(-5px);
-      border-color: var(--green);
-    }
-
-    .service-icon {
-      font-size: 32px;
-      margin-bottom: 18px;
-    }
-
-    .service h3 {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-
-    .service p {
-      color: #68736b;
-      font-size: 14px;
-    }
-
-    .about {
-      background: #e9eee6;
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      align-items: center;
-    }
-
-    .about h2 {
-      font-size: 38px;
-      line-height: 1.2;
-      margin-bottom: 20px;
-    }
-
-    .about p { color: #58645a; }
-
-    .features {
-      display: grid;
-      gap: 15px;
-    }
-
-    .feature {
-      background: white;
-      padding: 18px;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-
-    .feature span {
-      color: #70a52d;
-      margin-right: 10px;
-    }
-
-    .contact {
-      background: var(--dark);
-      color: white;
-      text-align: center;
-      padding: 75px 0;
-    }
-
-    .contact h2 {
-      font-size: 36px;
-      margin-bottom: 15px;
-    }
-
-    .contact p {
-      color: #b9c3bc;
-      margin-bottom: 28px;
-    }
-
-    footer {
-      background: #0a100c;
-      color: #9da9a0;
-      padding: 25px 0;
-      font-size: 13px;
-    }
-
-    footer .container {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    @media (max-width: 800px) {
-      .services { grid-template-columns: repeat(2, 1fr); }
-      .about-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-    }
-
-    @media (max-width: 520px) {
-      .services { grid-template-columns: 1fr; }
-      .hero { padding: 75px 0; }
-      .section { padding: 60px 0; }
-      h1 { letter-spacing: -2px; }
-    }
-  </style>
+/* RESPONSIVE */
+@media(max-width:850px){
+  .hero{min-height:670px}
+  .services{grid-template-columns:repeat(2,1fr)}
+  .about-grid{grid-template-columns:1fr;gap:45px}
+  .contact-inner{align-items:flex-start;flex-direction:column}
+}
+@media(max-width:600px){
+  nav{min-height:75px}
+  .nav-links{gap:12px}
+  .nav-links a:not(.nav-contact){display:none}
+  .brand-name{font-size:14px}
+  .brand-mark{width:33px;height:33px}
+  .hero{min-height:690px;background-position:58% center}
+  .hero h1{letter-spacing:-2.5px}
+  .hero p{font-size:15px}
+  .hero-note{display:none}
+  .intro-inner{align-items:flex-start;flex-direction:column;gap:5px}
+  .section{padding:75px 0}
+  .services{grid-template-columns:1fr}
+  .service{min-height:210px;padding:25px}
+  .steps{grid-template-columns:1fr;gap:28px}
+  .footer-inner{align-items:flex-start;flex-direction:column}
+}
+</style>
 </head>
 
 <body>
@@ -244,11 +369,19 @@
 <header>
   <div class="container">
     <nav>
-      <a href="#" class="logo">AUTO BEZ <span>BRIGE.</span></a>
+      <a href="#" class="brand" aria-label="AUTO BEZ BRIGE">
+        <svg class="brand-mark" viewBox="0 0 50 50" fill="none" aria-hidden="true">
+          <path d="M7 10H31M7 16H31M7 22H31M7 28H31M7 34H31M31 10V40M37 10V40M43 10V40"
+            stroke="#ffffff" stroke-width="2.5" stroke-linecap="square"/>
+        </svg>
+        <span class="brand-name">AUTO BEZ <span>BRIGE.</span></span>
+      </a>
+
       <div class="nav-links">
         <a href="#usluge">Usluge</a>
         <a href="#o-nama">O nama</a>
-        <a href="#kontakt">Kontakt</a>
+        <a href="#kako-radi">Kako funkcioniše</a>
+        <a href="#kontakt" class="nav-contact">Kontakt</a>
       </div>
     </nav>
   </div>
@@ -257,65 +390,92 @@
 <section class="hero">
   <div class="container">
     <div class="hero-content">
-      <div class="eyebrow">Automotive concierge Sarajevo</div>
-      <h1>Vaš automobil.<br><span>Naša briga.</span></h1>
+      <div class="eyebrow">Automotive concierge · Sarajevo</div>
+      <h1>Vi vozite.<br><span>Mi brinemo.</span></h1>
       <p>
-        Od redovnog servisa i zamjene guma do kupovine,
-        prodaje i neplaniranih kvarova. Mi organizujemo
-        sve što je potrebno da vaš automobil bude bez brige.
+        Servis, održavanje, kupovina, prodaja i sve između.
+        Jedan kontakt za organizaciju svega što vaš automobil treba.
       </p>
-      <a href="#usluge" class="button">Pogledajte naše usluge →</a>
+      <div class="hero-actions">
+        <a href="#usluge" class="button">UPOZNAJTE ABB</a>
+        <a href="#kako-radi" class="text-link">Kako funkcioniše →</a>
+      </div>
     </div>
   </div>
+  <div class="hero-note">Jedan kontakt. Sve brige o automobilu.</div>
 </section>
 
+<div class="intro-strip">
+  <div class="container intro-inner">
+    <strong>JEDAN KONTAKT. SVE BRIGE O AUTOMOBILU.</strong>
+    <span>Vaše vrijeme je važno. Mi preuzimamo organizaciju.</span>
+  </div>
+</div>
 <section class="section" id="usluge">
   <div class="container">
-    <div class="eyebrow">Šta radimo</div>
-    <h2 class="section-title">Sve za vaš automobil na jednom mjestu.</h2>
-    <p class="section-intro">
-      Izaberite uslugu. Mi ćemo pronaći rješenje,
-      organizovati posao i pratiti njegovu realizaciju.
-    </p>
+    <div class="section-head">
+      <div class="section-kicker">ABB usluge</div>
+      <h2 class="section-title">Sve što vaš automobil treba. Na jednom mjestu.</h2>
+      <p class="section-intro">
+        Ne morate tražiti različite majstore, servise i pružaoce usluga.
+        Recite nam šta vam treba, a mi ćemo organizovati posao i pratiti njegovu realizaciju.
+      </p>
+    </div>
 
     <div class="services">
-
       <article class="service">
-        <div class="service-icon">🔍</div>
-        <h3>ABB Buy & Sell</h3>
-        <p>Pregled prije kupovine, procjena ulaganja, priprema, fotografisanje i organizacija prodaje automobila.</p>
+        <div class="service-top">
+          <span class="service-number">01 / KUPOVINA I PRODAJA</span>
+          <span class="service-symbol">↗</span>
+        </div>
+        <h3>ABB Buy &amp; Sell</h3>
+        <p>Pregled prije kupovine, procjena ulaganja, priprema vozila, fotografisanje i organizacija prodaje.</p>
       </article>
 
       <article class="service">
-        <div class="service-icon">🚘</div>
+        <div class="service-top">
+          <span class="service-number">02 / SVAKODNEVNA BRIGA</span>
+          <span class="service-symbol">⌁</span>
+        </div>
         <h3>ABB Care</h3>
-        <p>Kompletna briga o vozilu, redovni servisi, registracija, gume, pranje i praćenje svih obaveza.</p>
+        <p>Redovni servisi, registracija, gume, pranje i praćenje svih važnih obaveza vašeg vozila.</p>
       </article>
 
       <article class="service">
-        <div class="service-icon">🛠️</div>
+        <div class="service-top">
+          <span class="service-number">03 / PO POZIVU</span>
+          <span class="service-symbol">+</span>
+        </div>
         <h3>ABB On Demand</h3>
-        <p>Organizacija majstora, pomoć kod kvarova, šlep služba i pojedinačne intervencije na vaš poziv.</p>
+        <p>Organizacija majstora, pomoć kod kvarova, šlep služba i pojedinačne intervencije.</p>
       </article>
 
       <article class="service">
-        <div class="service-icon">✨</div>
+        <div class="service-top">
+          <span class="service-number">04 / NJEGA I ZAŠTITA</span>
+          <span class="service-symbol">◇</span>
+        </div>
         <h3>ABB Detailing</h3>
         <p>Dubinsko čišćenje, poliranje, zaštita laka i profesionalna njega enterijera i eksterijera.</p>
       </article>
 
       <article class="service">
-        <div class="service-icon">🏢</div>
+        <div class="service-top">
+          <span class="service-number">05 / POSLOVNI KORISNICI</span>
+          <span class="service-symbol">▤</span>
+        </div>
         <h3>ABB Fleet</h3>
-        <p>Upravljanje i organizacija održavanja vozila za male firme i poslovne korisnike.</p>
+        <p>Organizacija održavanja, evidencija troškova i praćenje obaveza vozila za male i srednje firme.</p>
       </article>
 
       <article class="service">
-        <div class="service-icon">🔧</div>
+        <div class="service-top">
+          <span class="service-number">06 / PROVJERA VOZILA</span>
+          <span class="service-symbol">⌕</span>
+        </div>
         <h3>ABB Check</h3>
         <p>Tehnička provjera, dijagnostika i kontrola stanja vozila prije kupovine ili dužeg putovanja.</p>
       </article>
-
     </div>
   </div>
 </section>
@@ -323,37 +483,80 @@
 <section class="section about" id="o-nama">
   <div class="container about-grid">
     <div>
-      <div class="eyebrow">Jednostavnije vlasništvo automobila</div>
-      <h2>Vi vozite.<br>Mi brinemo o svemu ostalom.</h2>
-      <p>
-        AUTO BEZ BRIGE povezuje vlasnike automobila sa
-        provjerenim servisima, vulkanizerima, praonicama
-        i drugim automobilskim uslugama.
-        Vaš jedan kontakt za sve potrebe automobila.
+      <div class="section-kicker">Šta je AUTO BEZ BRIGE?</div>
+      <h2 class="section-title">Vi imate automobil. Mi imamo rješenje.</h2>
+      <p class="about-copy">
+        AUTO BEZ BRIGE je usluga organizacije i upravljanja brigom o automobilu.
+        Povezujemo vlasnike vozila sa provjerenim automobilskim partnerima i
+        preuzimamo koordinaciju poslova koji oduzimaju vrijeme.
+        Od redovnog održavanja do neplaniranih situacija – vaš jedan kontakt
+        za sve potrebe automobila.
       </p>
     </div>
 
-    <div class="features">
-      <div class="feature"><span>✓</span> Jedan kontakt za sve usluge</div>
-      <div class="feature"><span>✓</span> Provjereni partneri</div>
-      <div class="feature"><span>✓</span> Organizacija termina i intervencija</div>
-      <div class="feature"><span>✓</span> Praćenje troškova i održavanja</div>
-      <div class="feature"><span>✓</span> Ušteda vremena i manje brige</div>
+    <div class="about-list">
+      <div class="about-item"><span class="about-check">✳</span> Jedan kontakt za različite automobilske usluge</div>
+      <div class="about-item"><span class="about-check">✳</span> Mreža partnerskih servisa i stručnjaka</div>
+      <div class="about-item"><span class="about-check">✳</span> Organizacija termina i intervencija</div>
+      <div class="about-item"><span class="about-check">✳</span> Evidencija održavanja i troškova</div>
+      <div class="about-item"><span class="about-check">✳</span> Manje izgubljenog vremena i neizvjesnosti</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="kako-radi">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-kicker">Jednostavno i praktično</div>
+      <h2 class="section-title">Kako funkcioniše ABB?</h2>
+      <p class="section-intro">
+        Bez komplikacija. Vi nam kažete šta je potrebno, a mi organizujemo
+        odgovarajuću uslugu.
+      </p>
+    </div>
+
+    <div class="steps">
+      <article class="step">
+        <div class="step-no">KORAK 01</div>
+        <h3>Kontaktirate nas</h3>
+        <p>Javite nam se i opišite šta je potrebno vašem automobilu.</p>
+      </article>
+
+      <article class="step">
+        <div class="step-no">KORAK 02</div>
+        <h3>Mi organizujemo</h3>
+        <p>Pronalazimo odgovarajućeg partnera, dogovaramo termin i detalje usluge.</p>
+      </article>
+
+      <article class="step">
+        <div class="step-no">KORAK 03</div>
+        <h3>Vi ste bez brige</h3>
+        <p>Pratimo realizaciju i informišemo vas o obavljenom poslu.</p>
+      </article>
     </div>
   </div>
 </section>
 
 <section class="contact" id="kontakt">
-  <div class="container">
-    <div class="eyebrow">AUTO BEZ BRIGE</div>
-    <h2>Prepustite brigu nama.</h2>
-    <p>Kontaktirajte nas i saznajte kako možemo brinuti o vašem automobilu.</p>
-    <a href="mailto:info@autobezbrige.ba" class="button">Kontaktirajte nas</a>
+  <div class="container contact-inner">
+    <div>
+      <div class="section-kicker">Vaš automobil zaslužuje pažnju</div>
+      <h2>Prepustite brigu nama.</h2>
+      <p>Recite nam šta vam je potrebno. Pronaći ćemo način da pomognemo.</p>
+    </div>
+    <a href="mailto:info@autobezbrige.ba" class="button">KONTAKTIRAJTE ABB →</a>
   </div>
 </section>
 
 <footer>
-  <div class="container">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <svg viewBox="0 0 50 50" fill="none" aria-hidden="true">
+        <path d="M7 10H31M7 16H31M7 22H31M7 28H31M7 34H31M31 10V40M37 10V40M43 10V40"
+          stroke="#9bd34b" stroke-width="2.5" stroke-linecap="square"/>
+      </svg>
+      AUTO BEZ BRIGE.
+    </div>
     <div>© 2026 AUTO BEZ BRIGE. Sva prava zadržana.</div>
     <div>Jedan kontakt. Sve brige o automobilu.</div>
   </div>
@@ -361,4 +564,3 @@
 
 </body>
 </html>
-
