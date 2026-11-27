@@ -942,6 +942,107 @@ async function addService(e){
   alert('Servisna intervencija je evidentirana.');
 }
 
+async function addPenalty(e){
+  e.preventDefault();
+
+  const files = {
+    fine: $('penaltyDocument').files[0],
+    license: $('penaltyLicenseFile').files[0],
+    passport: $('penaltyPassportFile').files[0]
+  };
+
+  const uploadedPaths = [];
+
+  async function uploadDocument(file, type){
+    if(!file) return null;
+
+    if(file.size > 10 * 1024 * 1024){
+      throw new Error('Dokument ne smije biti veći od 10 MB.');
+    }
+
+    const extension = file.name.split('.').pop().toLowerCase();
+    const safeName = extension.replace(/[^a-z0-9]/g,'');
+
+    const path =
+      'penalties/' +
+      Date.now() + '_' +
+      Math.random().toString(36).slice(2) +
+      '_' + type + '.' + safeName;
+
+    const {error} = await db.storage
+      .from('abb-kazne-dokumenti')
+      .upload(path, file, {
+        upsert:false,
+        contentType:file.type
+      });
+
+    if(error) throw error;
+
+    uploadedPaths.push(path);
+    return path;
+  }
+
+  try{
+    const finePath = await uploadDocument(files.fine,'kazna');
+    const licensePath = await uploadDocument(files.license,'vozacka');
+    const passportPath = await uploadDocument(files.passport,'pasos');
+
+    const record = {
+      ticket_number:$('penaltyNumber').value.trim()||null,
+      received_date:$('penaltyReceived').value||null,
+      offense_date:$('penaltyOffense').value||null,
+      issuing_authority:$('penaltyAuthority').value.trim()||null,
+
+      vehicle_id:$('penaltyVehicle').value
+        ? Number($('penaltyVehicle').value)
+        : null,
+
+      amount:$('penaltyAmount').value
+        ? Number($('penaltyAmount').value)
+        : null,
+
+      driver_name:$('penaltyDriver').value.trim()||null,
+      driver_license_number:$('penaltyLicense').value.trim()||null,
+      passport_number:$('penaltyPassport').value.trim()||null,
+      driver_phone:$('penaltyPhone').value.trim()||null,
+
+      response_deadline:$('penaltyResponseDeadline').value||null,
+      payment_deadline:$('penaltyPaymentDeadline').value||null,
+
+      procedure_status:$('penaltyProcedureStatus').value,
+      payment_status:$('penaltyPaymentStatus').value,
+
+      fine_document_path:finePath,
+      license_document_path:licensePath,
+      passport_document_path:passportPath,
+
+      notes:$('penaltyNotes').value.trim()||null
+    };
+
+    const {error} = await db.from('penalties').insert(record);
+
+    if(error) throw error;
+
+    e.target.reset();
+    e.target.style.display='none';
+
+    await loadData();
+
+    alert('Kazna je uspješno evidentirana.');
+
+  }catch(error){
+
+    if(uploadedPaths.length){
+      await db.storage
+        .from('abb-kazne-dokumenti')
+        .remove(uploadedPaths);
+    }
+
+    console.error(error);
+    alert('Greška pri evidentiranju kazne: '+error.message);
+  }
+}
+
 async function removeService(id){
   if(!confirm('Obrisati ovu servisnu intervenciju?')) return;
   const {error}=await db.from('services').delete().eq('id',id);
