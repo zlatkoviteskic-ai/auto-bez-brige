@@ -1245,6 +1245,29 @@ function updatePenaltyVehicleOptions(){
   select.value=selected;
 }
 
+let selectedPenaltyId = null;
+
+function openPenalty(id){
+  selectedPenaltyId = id;
+
+  const panel = $('penaltyDetailPanel');
+  if(!panel) return;
+
+  panel.style.display = 'block';
+
+  renderPenaltyDetail();
+
+  panel.scrollIntoView({
+    behavior:'smooth',
+    block:'start'
+  });
+}
+
+function closePenaltyDetail(){
+  selectedPenaltyId = null;
+  $('penaltyDetailPanel').style.display = 'none';
+}
+
 function renderPenalties(){
   const table=$('penaltyTable');
   if(!table) return;
