@@ -405,7 +405,36 @@ nav {
   margin-bottom:12px;
 }
 .contact p {color:#667168;font-size:14px}
-
+.contact-info {
+  display:grid;
+  gap:12px;
+  margin-top:25px;
+}
+.contact-info a,
+.contact-info span {
+  color:#354331;
+  font-size:14px;
+}
+.contact-info a:hover {
+  color:#739b3b;
+}
+.contact-info strong {
+  display:inline-block;
+  min-width:75px;
+}
+.contact-company {
+  margin-top:22px;
+  padding-top:18px;
+  border-top:1px solid #cbd4c8;
+  color:#667168;
+  font-size:12px;
+}
+.footer-legal {
+  width:100%;
+  padding-top:20px;
+  border-top:1px solid #263129;
+  line-height:1.9;
+}
 /* FOOTER */
 footer {
   background:#090e0b;
@@ -862,6 +891,7 @@ footer {
   </div>
 </section>
 
+
 <!-- CONTACT -->
 <section class="contact" id="kontakt">
   <div class="container contact-inner">
@@ -869,10 +899,28 @@ footer {
       <div class="section-kicker">Vaš automobil zaslužuje pažnju</div>
       <h2>Prepustite brigu nama.</h2>
       <p>Recite nam šta vam je potrebno. Pronaći ćemo način da pomognemo.</p>
+
+      <div class="contact-info">
+        <span><strong>Adresa:</strong> Branilaca Sarajeva 39, Sarajevo</span>
+        <a href="tel:+38761617181"><strong>Telefon:</strong> 061 617 181</a>
+        <a href="mailto:info@zelecar.com"><strong>E-mail:</strong> info@zelecar.com</a>
+      </div>
     </div>
-    <a href="mailto:info@autobezbrige.ba" class="button">KONTAKTIRAJTE ABB →</a>
+
+    <div>
+      <a href="mailto:info@zelecar.com" class="button">
+        KONTAKTIRAJTE ABB →
+      </a>
+
+      <div class="contact-company">
+        ABB – AUTO BEZ BRIGE<br>
+        Usluge organizuje ZELE d.o.o. Sarajevo.
+      </div>
+    </div>
   </div>
 </section>
+
+
 
 <!-- FOOTER -->
 <footer>
@@ -884,10 +932,17 @@ footer {
       </svg>
       AUTO BEZ BRIGE.
     </div>
+
     <div>© 2026 AUTO BEZ BRIGE. Sva prava zadržana.</div>
     <div>Jedan kontakt. Sve brige o automobilu.</div>
+
+    <div class="footer-legal">
+      <strong>IMPRESUM</strong><br>
+      Vlasnik: ZELE d.o.o. Sarajevo<br>
+      Djelatnost: Društvo za promet i usluge<br>
+      Sjedište: Branilaca Sarajeva 39, Sarajevo<br>
+      Telefon: 061 617 181<br>
+      E-mail: info@zelecar.com
+    </div>
   </div>
 </footer>
-
-</body>
-</html>
