@@ -398,6 +398,179 @@ td{padding:14px 12px;border-bottom:1px solid var(--border);font-size:14px}
     </div>
   </section>
 
+<section class="page" id="penalties">
+
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <h2>ABB KAZNE</h2>
+        <p>Evidencija prekršajnih naloga i postupaka.</p>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn" type="button"
+        onclick="toggleForm('penaltyForm')">
+        + Nova kazna
+      </button>
+    </div>
+
+    <form id="penaltyForm" style="display:none"
+      onsubmit="addPenalty(event)">
+
+      <h3>Podaci o kazni</h3>
+
+      <div class="form-grid">
+        <div class="field">
+          <label>Broj prekršajnog naloga</label>
+          <input id="penaltyNumber">
+        </div>
+
+        <div class="field">
+          <label>Organ koji je izdao kaznu</label>
+          <input id="penaltyAuthority">
+        </div>
+
+        <div class="field">
+          <label>Datum prijema</label>
+          <input id="penaltyReceived" type="date">
+        </div>
+
+        <div class="field">
+          <label>Datum prekršaja</label>
+          <input id="penaltyOffense" type="date">
+        </div>
+
+        <div class="field">
+          <label>Vozilo</label>
+          <select id="penaltyVehicle"></select>
+        </div>
+
+        <div class="field">
+          <label>Iznos kazne (KM)</label>
+          <input id="penaltyAmount" type="number" min="0" step="0.01">
+        </div>
+
+        <div class="field">
+          <label>Rok za postupanje</label>
+          <input id="penaltyResponseDeadline" type="date">
+        </div>
+
+        <div class="field">
+          <label>Rok za plaćanje</label>
+          <input id="penaltyPaymentDeadline" type="date">
+        </div>
+      </div>
+
+      <h3>Podaci o vozaču</h3>
+
+      <div class="form-grid">
+        <div class="field">
+          <label>Ime i prezime vozača</label>
+          <input id="penaltyDriver">
+        </div>
+
+        <div class="field">
+          <label>Broj vozačke dozvole</label>
+          <input id="penaltyLicense">
+        </div>
+
+        <div class="field">
+          <label>Broj pasoša</label>
+          <input id="penaltyPassport">
+        </div>
+
+        <div class="field">
+          <label>Telefon vozača</label>
+          <input id="penaltyPhone">
+        </div>
+
+        <div class="field">
+          <label>Slika vozačke dozvole</label>
+          <input id="penaltyLicenseFile" type="file"
+            accept="image/*,.pdf">
+        </div>
+
+        <div class="field">
+          <label>Slika pasoša</label>
+          <input id="penaltyPassportFile" type="file"
+            accept="image/*,.pdf">
+        </div>
+      </div>
+
+      <h3>Dokumentacija i status</h3>
+
+      <div class="form-grid">
+        <div class="field">
+          <label>Fotografija ili PDF kazne</label>
+          <input id="penaltyDocument" type="file"
+            accept="image/*,.pdf">
+        </div>
+
+        <div class="field">
+          <label>Status postupka</label>
+          <select id="penaltyProcedureStatus">
+            <option>Nova kazna</option>
+            <option>Čeka se identifikacija vozača</option>
+            <option>Podaci o vozaču dostavljeni</option>
+            <option>Podnesen zahtjev za sudsko odlučivanje</option>
+            <option>Čeka se odluka suda</option>
+            <option>Završeno</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Status plaćanja</label>
+          <select id="penaltyPaymentStatus">
+            <option>Neplaćena</option>
+            <option>Plaćena</option>
+            <option>Djelimično plaćena</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Napomena</label>
+          <input id="penaltyNotes">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn" type="submit">Sačuvaj kaznu</button>
+        <button class="btn btn-secondary" type="button"
+          onclick="toggleForm('penaltyForm')">
+          Odustani
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <h2>Evidencija kazni</h2>
+      <input class="search" id="penaltySearch"
+        placeholder="Pretraži kazne...">
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Broj naloga</th>
+            <th>Datum</th>
+            <th>Vozilo</th>
+            <th>Vozač</th>
+            <th>Iznos</th>
+            <th>Postupak</th>
+            <th>Plaćanje</th>
+          </tr>
+        </thead>
+        <tbody id="penaltyTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
+
   <section class="page" id="about">
     <div class="panel">
       <h2>O aplikaciji</h2>
