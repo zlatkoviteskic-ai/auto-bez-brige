@@ -1373,7 +1373,12 @@ function renderPenalties(){
         :(p.vehicle_registration||'Nepoznato vozilo');
 
      return `<tr onclick="openPenalty(${p.id})" style="cursor:pointer">
-        <td><strong>${escapeHTML(p.ticket_number||'–')}</strong></td>
+        <td>
+  <button class="btn btn-secondary" type="button"
+    onclick="event.stopPropagation(); openPenalty(${p.id})">
+    ${escapeHTML(p.ticket_number||'Otvori kaznu')}
+  </button>
+</td>
         <td>${formatDate(p.received_date)}</td>
         <td>${escapeHTML(vehicleName)}</td>
         <td>${escapeHTML(p.driver_name||'–')}</td>
