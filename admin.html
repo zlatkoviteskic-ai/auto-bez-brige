@@ -676,17 +676,20 @@ async function startApp(){
   await loadData();
 }
 
+
 async function loadData(){
   try{
-    const [c,v,s]=await Promise.all([
+    const [c,v,s,p]=await Promise.all([
       db.from('clients').select('*').order('id',{ascending:false}),
       db.from('vehicles').select('*').order('id',{ascending:false}),
-      db.from('services').select('*').order('service_date',{ascending:false})
+      db.from('services').select('*').order('service_date',{ascending:false}),
+      db.from('penalties').select('*').order('id',{ascending:false})
     ]);
 
     if(c.error) throw c.error;
     if(v.error) throw v.error;
     if(s.error) throw s.error;
+    if(p.error) throw p.error;
 
     clients=c.data.map(x=>({
       id:x.id,
@@ -702,12 +705,10 @@ async function loadData(){
       make:x.make,
       model:x.model,
       year:x.year,
-     
-registration:x.registration,
-registration_expiry:x.registration_expiry||x.registration,
-insurance_expiry:x.insurance_expiry,
-km:x.mileage,
-
+      registration:x.registration,
+      registration_expiry:x.registration_expiry||x.registration,
+      insurance_expiry:x.insurance_expiry,
+      km:x.mileage,
       plate:x.plate||'',
       fuel:x.fuel||''
     }));
@@ -723,12 +724,16 @@ km:x.mileage,
       note:x.notes||''
     }));
 
+    penalties=p.data;
+
     render();
+
   }catch(error){
     alert('Greška pri učitavanju podataka: '+error.message);
     console.error(error);
   }
 }
+
 
 function renderDueAlerts(){
   const container=$('dueAlerts');
