@@ -1372,7 +1372,7 @@ function renderPenalties(){
         ?v.make+' '+v.model
         :(p.vehicle_registration||'Nepoznato vozilo');
 
-      return `<tr>
+     return `<tr onclick="openPenalty(${p.id})" style="cursor:pointer">
         <td><strong>${escapeHTML(p.ticket_number||'–')}</strong></td>
         <td>${formatDate(p.received_date)}</td>
         <td>${escapeHTML(vehicleName)}</td>
