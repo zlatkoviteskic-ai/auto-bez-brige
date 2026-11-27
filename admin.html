@@ -547,8 +547,9 @@ td{padding:14px 12px;border-bottom:1px solid var(--border);font-size:14px}
   <div class="panel">
     <div class="panel-head">
       <h2>Evidencija kazni</h2>
-      <input class="search" id="penaltySearch"
-        placeholder="Pretraži kazne...">
+     <input class="search" id="penaltySearch"
+        placeholder="Pretraži kazne..."
+        oninput="renderPenalties()">
     </div>
 
     <div class="table-wrap">
@@ -1207,8 +1208,72 @@ function render(){
 
   updateOwnerOptions();
 updateServiceVehicleOptions();
+updatePenaltyVehicleOptions();
+renderPenalties();
 renderDueAlerts();
 if(selectedVehicleId!==null) renderVehicleDetail();
+}
+
+function updatePenaltyVehicleOptions(){
+  const select=$('penaltyVehicle');
+  if(!select) return;
+
+  const selected=select.value;
+
+  select.innerHTML='<option value="">Odaberi vozilo</option>'+
+    vehicles.map(v=>`
+      <option value="${v.id}">
+        ${escapeHTML(v.make+' '+v.model+' - '+(v.plate||'Bez registracije'))}
+      </option>
+    `).join('');
+
+  select.value=selected;
+}
+
+function renderPenalties(){
+  const table=$('penaltyTable');
+  if(!table) return;
+
+  const search=($('penaltySearch')?.value||'').toLowerCase();
+
+  const filtered=penalties.filter(p=>{
+    const vehicle=vehicles.find(v=>v.id===p.vehicle_id);
+
+    const vehicleName=vehicle
+      ?vehicle.make+' '+vehicle.model+' '+(vehicle.plate||'')
+      :(p.vehicle_registration||'');
+
+    const text=[
+      p.ticket_number,
+      p.driver_name,
+      p.issuing_authority,
+      vehicleName,
+      p.procedure_status,
+      p.payment_status
+    ].join(' ').toLowerCase();
+
+    return text.includes(search);
+  });
+
+  table.innerHTML=filtered.length
+    ?filtered.map(p=>{
+      const v=vehicles.find(x=>x.id===p.vehicle_id);
+      const vehicleName=v
+        ?v.make+' '+v.model
+        :(p.vehicle_registration||'Nepoznato vozilo');
+
+      return `<tr>
+        <td><strong>${escapeHTML(p.ticket_number||'–')}</strong></td>
+        <td>${formatDate(p.received_date)}</td>
+        <td>${escapeHTML(vehicleName)}</td>
+        <td>${escapeHTML(p.driver_name||'–')}</td>
+        <td>${p.amount!==null&&p.amount!==undefined
+          ?Number(p.amount).toLocaleString('bs-BA')+' KM':'–'}</td>
+        <td>${escapeHTML(p.procedure_status||'Nova kazna')}</td>
+        <td>${escapeHTML(p.payment_status||'Neplaćena')}</td>
+      </tr>`;
+    }).join('')
+    :'<tr><td colspan="7" class="empty">Nema evidentiranih kazni.</td></tr>';
 }
 
 /* PROVJERA POSTOJEĆE PRIJAVE */
